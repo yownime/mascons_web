@@ -16,7 +16,7 @@ export default function Home() {
           href="/admin" 
           className="px-6 py-2.5 bg-purple-700 hover:bg-purple-800 text-white rounded-full font-semibold transition-all shadow-lg shadow-purple-200 hover:shadow-purple-300 hover:-translate-y-0.5"
         >
-          Admin Dashboard
+          Dasbor Admin
         </Link>
       </header>
 
@@ -30,18 +30,18 @@ export default function Home() {
           <div className="relative z-10 max-w-4xl mx-auto space-y-8">
             <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100 text-purple-700 font-medium text-sm mb-4">
               <span className="flex h-2 w-2 rounded-full bg-purple-600 animate-pulse"></span>
-              <span>Modern Psychological Testing Platform</span>
+              <span>Platform Tes Psikologi Modern</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold text-purple-950 tracking-tight leading-[1.1]">
-              Elevate Your <br className="hidden md:block" />
+              Tingkatkan <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-fuchsia-600">
-                Testing Ecosystem
+                Ekosistem Tes Anda
               </span>
             </h1>
             
             <p className="text-xl text-purple-800/80 max-w-2xl mx-auto leading-relaxed">
-              Seamlessly manage CFIT, EPPS, and Kraepelin assessments. Experience the unified platform connecting mobile participants with robust administrative tools.
+              Kelola asesmen CFIT, EPPS, dan Kraepelin dengan lancar. Nikmati platform terpadu yang menghubungkan peserta seluler dengan alat administrasi yang andal.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -49,14 +49,14 @@ export default function Home() {
                 href="/admin/sessions" 
                 className="w-full sm:w-auto px-8 py-4 bg-purple-950 hover:bg-purple-900 text-white rounded-full font-bold text-lg flex items-center justify-center group transition-all shadow-xl shadow-purple-950/20"
               >
-                Manage Sessions
+                Kelola Sesi
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a 
                 href="#how-it-works" 
                 className="w-full sm:w-auto px-8 py-4 bg-purple-50 hover:bg-purple-100 text-purple-900 rounded-full font-bold text-lg flex items-center justify-center transition-colors"
               >
-                See How It Works
+                Lihat Cara Kerjanya
               </a>
             </div>
           </div>
@@ -66,25 +66,25 @@ export default function Home() {
         <section className="py-24 px-6 lg:px-12 bg-white relative">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-purple-950">Designed for Professionals</h2>
-              <p className="text-purple-800/70 max-w-2xl mx-auto">Everything you need to conduct, monitor, and analyze psychological tests efficiently.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-950">Dirancang untuk Profesional</h2>
+              <p className="text-purple-800/70 max-w-2xl mx-auto">Segala yang Anda butuhkan untuk mengadakan, memantau, dan menganalisis tes psikologi secara efisien.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <FeatureCard 
                 icon={<BarChart3 className="text-purple-600 w-8 h-8" />}
-                title="Real-Time Analytics"
-                description="Monitor active test sessions, track participant progress, and instantly view calculated scores without delay."
+                title="Analitik Real-Time"
+                description="Pantau sesi tes aktif, lacak progres peserta, dan lihat hasil perhitungan skor secara instan tanpa jeda."
               />
               <FeatureCard 
                 icon={<Smartphone className="text-purple-600 w-8 h-8" />}
-                title="Mobile-First Testing"
-                description="Participants take assessments comfortably via the dedicated Flutter mobile app with a seamless user experience."
+                title="Tes Berbasis Seluler"
+                description="Peserta dapat mengerjakan tes dengan nyaman melalui aplikasi seluler Flutter khusus dengan pengalaman pengguna yang mulus."
               />
               <FeatureCard 
                 icon={<FileText className="text-purple-600 w-8 h-8" />}
-                title="Automated Reports"
-                description="Instantly generate highly detailed, professional PDF reports for CFIT, EPPS, and other tests directly from the dashboard."
+                title="Laporan Otomatis"
+                description="Hasilkan laporan PDF profesional dan mendetail secara instan untuk CFIT, EPPS, dan tes lainnya langsung dari dasbor."
               />
             </div>
           </div>
@@ -94,28 +94,28 @@ export default function Home() {
         <section id="how-it-works" className="py-24 px-6 lg:px-12 bg-purple-50/50 border-y border-purple-100">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-purple-950 mb-4">A Streamlined Workflow</h2>
-              <p className="text-purple-800/70">From session creation to final report delivery.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-950 mb-4">Alur Kerja yang Efisien</h2>
+              <p className="text-purple-800/70">Mulai dari pembuatan sesi hingga pengiriman laporan akhir.</p>
             </div>
 
             <div className="space-y-12">
               <Step 
                 number="01"
                 icon={<Laptop className="w-6 h-6 text-purple-700" />}
-                title="Create a Session"
-                description="Administrators set up a new test session via the web dashboard, selecting the required test batteries (e.g., CFIT, EPPS) and generating a unique access code."
+                title="Buat Sesi Tes"
+                description="Administrator menyiapkan sesi tes baru melalui dasbor web, memilih rangkaian tes yang dibutuhkan (mis. CFIT, EPPS) dan menghasilkan kode akses unik."
               />
               <Step 
                 number="02"
                 icon={<Smartphone className="w-6 h-6 text-purple-700" />}
-                title="Participants Join"
-                description="Test-takers download the Mascons mobile app, enter the access code, and complete the assessments in a focused, secure environment."
+                title="Peserta Bergabung"
+                description="Peserta mengunduh aplikasi seluler Mascons, memasukkan kode akses, dan menyelesaikan tes dalam lingkungan yang fokus dan aman."
               />
               <Step 
                 number="03"
                 icon={<CheckCircle2 className="w-6 h-6 text-purple-700" />}
-                title="Review & Export"
-                description="Results are synced instantly. Administrators can review the computed scores and generate beautifully formatted PDF reports with one click."
+                title="Tinjau & Ekspor"
+                description="Hasil disinkronisasi seketika. Administrator dapat meninjau skor yang telah dihitung dan membuat laporan PDF berformat rapi dengan satu klik."
               />
             </div>
           </div>
@@ -126,17 +126,17 @@ export default function Home() {
       <footer className="bg-purple-950 pt-20 pb-10 px-6 lg:px-12 text-center text-purple-200">
         <div className="max-w-3xl mx-auto space-y-8 mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-            Ready to transform your testing process?
+            Siap mentransformasi proses tes Anda?
           </h2>
           <p className="text-purple-300 text-lg">
-            Join the modern era of psychological assessments with Mascons.
+            Bergabunglah dengan era modern asesmen psikologi bersama Mascons.
           </p>
           <div className="pt-4">
             <Link 
               href="/admin" 
               className="inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-purple-50 text-purple-900 rounded-full font-bold text-lg transition-colors shadow-lg shadow-black/20"
             >
-              Get Started Now
+              Mulai Sekarang
             </Link>
           </div>
         </div>
@@ -168,7 +168,6 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode, titl
 function Step({ number, icon, title, description }: { number: string, icon: React.ReactNode, title: string, description: string }) {
   return (
     <div className="flex items-start gap-6 relative">
-      {/* Connector Line (hidden on last item via CSS if mapped, but here we just leave it for simplicity or use a subtle border) */}
       <div className="flex-shrink-0 flex flex-col items-center">
         <div className="w-14 h-14 rounded-full bg-white border-2 border-purple-200 flex items-center justify-center shadow-sm text-purple-900 font-bold font-mono">
           {number}
