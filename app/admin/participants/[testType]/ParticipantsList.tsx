@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Eye, Clock, User as UserIcon, X, Calendar, Mail, Fingerprint, Search } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
 type Participant = {
   id: number;
@@ -16,6 +17,7 @@ type Participant = {
 export default function ParticipantsList({ participants }: { participants: Participant[] }) {
   const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const params = useParams();
 
   const filteredParticipants = participants.filter(p => {
     const pd = p.personalData as any;
@@ -153,11 +155,16 @@ export default function ParticipantsList({ participants }: { participants: Parti
               >
                 Tutup
               </button>
-              <button 
-                className="flex-1 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 "
-              >
-                Lihat Hasil Lengkap
-              </button>
+              {selectedParticipant.status === 'completed' && (
+                <a 
+                  href={`/api/reports/${params.testType}/${selectedParticipant.id}`}
+                  target="_blank"
+                  className="flex-1 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 text-center flex items-center justify-center"
+                >
+                  <Eye size={18} className="mr-2" />
+                  Lihat Hasil Lengkap
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ export default async function ResultsPage() {
   const results = await db
     .select({
       id: testResults.id,
+      participantId: testResults.participantId,
       category: testResults.category,
       scoreSummary: testResults.scoreSummary,
       createdAt: testResults.createdAt,
@@ -62,10 +63,14 @@ export default async function ResultsPage() {
                     <Eye size={14} className="mr-1.5" />
                     View
                   </button>
-                  <button className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                  <a 
+                    href={`/api/reports/${result.category}/${result.participantId}`} 
+                    target="_blank"
+                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors"
+                  >
                     <FileDown size={14} className="mr-1.5" />
                     PDF Report
-                  </button>
+                  </a>
                 </td>
               </tr>
             ))}
