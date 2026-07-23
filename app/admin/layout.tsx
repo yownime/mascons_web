@@ -35,12 +35,12 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex h-screen bg-purple-50 ">
       {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col">
+      <aside className="w-64 bg-white  border-r border-purple-100  flex flex-col">
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Mascons</h2>
-          <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Admin Portal</p>
+          <h2 className="text-2xl font-bold text-purple-700 ">Mascons</h2>
+          <p className="text-xs text-purple-800/70 mt-1 uppercase tracking-wider font-semibold">Admin Portal</p>
         </div>
         
         <nav className="flex-1 px-4 space-y-1">
@@ -50,7 +50,7 @@ export default async function AdminLayout({
           <SidebarItem href="/admin/results" icon={<FileText size={20} />} label="Results" />
         </nav>
         
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+        <div className="p-4 border-t border-purple-100 ">
           <SidebarItem href="/settings" icon={<Settings size={20} />} label="Settings" />
           <button className="flex items-center w-full px-4 py-2 mt-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
             <LogOut size={20} className="mr-3" />
@@ -61,10 +61,10 @@ export default async function AdminLayout({
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8">
-          <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Dashboard</h1>
+        <header className="h-16 bg-white  border-b border-purple-100  flex items-center justify-between px-8">
+          <h1 className="text-xl font-semibold text-purple-950 ">Dashboard</h1>
           <div className="flex items-center space-x-4">
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+            <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold">
               A
             </div>
           </div>
@@ -81,9 +81,9 @@ function SidebarItem({ href, icon, label }: { href: string; icon: React.ReactNod
   return (
     <Link 
       href={href}
-      className="flex items-center px-4 py-3 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 dark:hover:text-indigo-400 rounded-xl transition-all duration-200 group"
+      className="flex items-center px-4 py-3 text-sm font-medium text-purple-900  hover:text-purple-700 hover:bg-purple-50   rounded-xl transition-all duration-200 group"
     >
-      <span className="mr-3 text-slate-400 group-hover:text-indigo-500 transition-colors">
+      <span className="mr-3 text-purple-400 group-hover:text-purple-600 transition-colors">
         {icon}
       </span>
       {label}

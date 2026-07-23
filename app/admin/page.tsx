@@ -32,7 +32,7 @@ export default async function AdminDashboard() {
         <StatCard 
           title="Participants" 
           value={participantsCount.value.toString()} 
-          icon={<Users className="text-indigo-500" />}
+          icon={<Users className="text-purple-600" />}
           trend="+12 this week"
         />
         <StatCard 
@@ -50,23 +50,23 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="bg-white  p-6 rounded-2xl border border-purple-100  shadow-sm">
           <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
           <div className="space-y-4">
-            <p className="text-sm text-slate-500 italic">Activity log coming soon...</p>
+            <p className="text-sm text-purple-800/70 italic">Activity log coming soon...</p>
           </div>
         </div>
         
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="bg-white  p-6 rounded-2xl border border-purple-100  shadow-sm">
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-4">
             <form action={seedDatabase}>
-              <button type="submit" className="w-full p-4 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-xl font-medium text-sm hover:bg-amber-100 transition-colors flex items-center justify-center">
+              <button type="submit" className="w-full p-4 bg-amber-50  text-amber-600  rounded-xl font-medium text-sm hover:bg-amber-100 transition-colors flex items-center justify-center">
                 <Database size={16} className="mr-2" />
                 Seed Sample Data
               </button>
             </form>
-            <button className="p-4 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-xl font-medium text-sm hover:bg-emerald-100 transition-colors">
+            <button className="p-4 bg-emerald-50  text-emerald-600  rounded-xl font-medium text-sm hover:bg-emerald-100 transition-colors">
               Export All Results
             </button>
           </div>
@@ -78,15 +78,15 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, trend }: { title: string; value: string; icon: React.ReactNode; trend: string }) {
   return (
-    <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white  p-6 rounded-2xl border border-purple-100  shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-4">
-        <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+        <div className="p-2 bg-purple-50  rounded-lg">
           {icon}
         </div>
-        <span className="text-xs font-medium text-slate-400">{trend}</span>
+        <span className="text-xs font-medium text-purple-400">{trend}</span>
       </div>
       <div>
-        <p className="text-sm font-medium text-slate-500">{title}</p>
+        <p className="text-sm font-medium text-purple-800/70">{title}</p>
         <h4 className="text-3xl font-bold mt-1">{value}</h4>
       </div>
     </div>

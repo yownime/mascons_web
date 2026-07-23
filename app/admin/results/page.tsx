@@ -23,34 +23,34 @@ export default async function ResultsPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold">Test Results</h2>
-        <p className="text-slate-500">View and export psychological test reports.</p>
+        <p className="text-purple-800/70">View and export psychological test reports.</p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white  rounded-2xl border border-purple-100  shadow-sm overflow-hidden">
         <table className="w-full text-left">
-          <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+          <thead className="bg-purple-50  border-b border-purple-100 ">
             <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300">Participant</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300">Category</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300">Score Summary</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300 text-right">Actions</th>
+              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Participant</th>
+              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Category</th>
+              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Score Summary</th>
+              <th className="px-6 py-4 text-sm font-semibold text-purple-900  text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-purple-100 ">
             {results.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-6 py-12 text-center text-slate-500 italic">
+                <td colSpan={4} className="px-6 py-12 text-center text-purple-800/70 italic">
                   No results found yet.
                 </td>
               </tr>
             ) : results.map((result) => (
-              <tr key={result.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+              <tr key={result.id} className="hover:bg-purple-50/50  transition-colors">
                 <td className="px-6 py-4">
                   <p className="font-medium">{result.userName}</p>
-                  <p className="text-xs text-slate-500">{result.userEmail}</p>
+                  <p className="text-xs text-purple-800/70">{result.userEmail}</p>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="px-2 py-1 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded text-xs font-bold uppercase">
+                  <span className="px-2 py-1 bg-purple-50 text-purple-700  rounded text-xs font-bold uppercase">
                     {result.category}
                   </span>
                 </td>
@@ -58,7 +58,7 @@ export default async function ResultsPage() {
                   {result.scoreSummary || 'N/A'}
                 </td>
                 <td className="px-6 py-4 text-right space-x-2">
-                  <button className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-200 transition-colors">
+                  <button className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-purple-100  text-purple-900  rounded-lg hover:bg-slate-200 transition-colors">
                     <Eye size={14} className="mr-1.5" />
                     View
                   </button>
@@ -73,13 +73,13 @@ export default async function ResultsPage() {
         </table>
       </div>
 
-      <div className="mt-8 p-6 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 rounded-2xl">
-        <h4 className="text-sm font-bold text-amber-800 dark:text-amber-400 flex items-center">
+      <div className="mt-8 p-6 bg-amber-50  border border-amber-200 rounded-2xl">
+        <h4 className="text-sm font-bold text-amber-800  flex items-center">
           <FileText size={16} className="mr-2" />
           PDF Generation Strategy
         </h4>
-        <p className="mt-2 text-sm text-amber-700 dark:text-amber-500 leading-relaxed">
-          For Vercel environment, I recommend using <code className="font-mono bg-amber-100 dark:bg-amber-900/40 px-1 rounded">@react-pdf/renderer</code>. 
+        <p className="mt-2 text-sm text-amber-700  leading-relaxed">
+          For Vercel environment, I recommend using <code className="font-mono bg-amber-100  px-1 rounded">@react-pdf/renderer</code>. 
           It allows you to define PDF layouts using React components and generate them on the server or client. 
           Unlike Puppeteer, it has a smaller footprint and works reliably in serverless functions.
         </p>

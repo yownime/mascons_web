@@ -44,13 +44,13 @@ export default async function TestCategoryPage({ params }: { params: Promise<{ t
       <div className="flex items-center gap-4 mb-8">
         <Link
           href="/admin/participants"
-          className="p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 transition-colors"
+          className="p-2 bg-white  border border-purple-100  rounded-lg hover:bg-purple-50 transition-colors"
         >
-          <ChevronLeft size={20} className="text-slate-600" />
+          <ChevronLeft size={20} className="text-purple-900" />
         </Link>
         <div>
           <h2 className="text-2xl font-bold">Partisipan: {testTitle}</h2>
-          <p className="text-slate-500">Menampilkan {participants.length} partisipan terdaftar.</p>
+          <p className="text-purple-800/70">Menampilkan {participants.length} partisipan terdaftar.</p>
         </div>
       </div>
 
