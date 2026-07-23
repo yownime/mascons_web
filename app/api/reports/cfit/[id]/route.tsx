@@ -8,9 +8,15 @@ import { createClient } from '@/app/lib/supabase';
 
 export async function GET(
   req: NextRequest,
+<<<<<<< HEAD
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
+=======
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+>>>>>>> refs/rewritten/origin-main
 
   // 1. Verify Authentication
   const supabase = await createClient();
