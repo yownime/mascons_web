@@ -80,12 +80,15 @@ export async function GET(
         ReportComponent = <BakumReport data={reportData} user={user} />;
         break;
       default:
-        // Fallback for unimplemented reports to avoid crashing
-        return NextResponse.json({ error: `Report template for category '${category}' is not implemented yet.` }, { status: 501 });
+        break;
+    }
+
+    if (!ReportComponent) {
+      return NextResponse.json({ error: `Report template for category '${category}' is not implemented yet.` }, { status: 501 });
     }
 
     // 4. Generate PDF Stream
-    const stream = await renderToStream(ReportComponent);
+    const stream = await renderToStream(ReportComponent as any);
 
     // 5. Return as PDF
     const filename = `Mascons-Report-${category.toUpperCase()}-${fullData.user.fullName.replace(/\s+/g, '_')}.pdf`;
