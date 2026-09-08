@@ -2,7 +2,7 @@ import React from 'react';
 import { db } from '@/app/lib/db';
 import { testResults, testParticipants, users } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
-import { FileDown, Eye, FileText } from 'lucide-react';
+import { FileDown, Eye, FileText, FileSpreadsheet } from 'lucide-react';
 
 export default async function ResultsPage() {
   const results = await db
@@ -22,9 +22,18 @@ export default async function ResultsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold">Test Results</h2>
-        <p className="text-purple-800/70">View and export psychological test reports.</p>
+      <div className="flex justify-between items-end">
+        <div>
+          <h2 className="text-2xl font-bold">Test Results</h2>
+          <p className="text-purple-800/70">View and export psychological test reports.</p>
+        </div>
+        
+        <div>
+          <a href="/admin/results/epps" className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-900 text-sm font-semibold rounded-xl hover:bg-purple-200 transition-colors shadow-sm">
+            <FileSpreadsheet size={16} className="mr-2" />
+            EPPS Master Recap
+          </a>
+        </div>
       </div>
 
       <div className="bg-white  rounded-2xl border border-purple-100  shadow-sm overflow-hidden">
