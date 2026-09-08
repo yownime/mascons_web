@@ -12,8 +12,6 @@ const TEST_INFO: Record<string, { title: string; category: string; icon: React.F
   bakum: { title: 'BAKUM', category: 'Tes Bakat', icon: Activity, color: 'bg-rose-500' },
   epps: { title: 'EPPS', category: 'Tes Minat', icon: Users, color: 'bg-purple-500' },
   minat_jabatan: { title: 'Minat Jabatan', category: 'Tes Minat', icon: Network, color: 'bg-blue-500' },
-  kraepelin: { title: 'Kraepelin', category: 'Tes Kerja', icon: Target, color: 'bg-purple-700' },
-  lee_thorpee: { title: 'Lee Thorpee', category: 'Tes Minat', icon: Users, color: 'bg-sky-500' },
 };
 
 export default async function ParticipantsDashboard() {
