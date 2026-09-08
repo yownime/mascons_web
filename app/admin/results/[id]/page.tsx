@@ -7,8 +7,9 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export default async function CertificatePage({ params }: { params: { id: string } }) {
-  const resultId = parseInt(params.id, 10);
+export default async function CertificatePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const resultId = parseInt(id, 10);
   
   if (isNaN(resultId)) {
     return notFound();
