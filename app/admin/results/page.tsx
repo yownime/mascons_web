@@ -1,102 +1,76 @@
 import React from 'react';
 import { db } from '@/app/lib/db';
-import { testResults, testParticipants, users } from '@/db/schema';
-import { desc, eq } from 'drizzle-orm';
-import { FileDown, Eye, FileText, FileSpreadsheet } from 'lucide-react';
+import { testResults, testParticipants, testSessions } from '@/db/schema';
+import { eq, sql } from 'drizzle-orm';
+import Link from 'next/link';
+import { Brain, Users, Lightbulb, Activity, Target, Network } from 'lucide-react';
+
+const TEST_INFO: Record<string, { title: string; category: string; icon: React.FC<any>; color: string }> = {
+  cpm: { title: 'CPM', category: 'Tes IQ', icon: Target, color: 'bg-emerald-500' },
+  cfit: { title: 'CFIT', category: 'Tes IQ', icon: Brain, color: 'bg-purple-500' },
+  tiu: { title: 'TIU', category: 'Tes IQ', icon: Lightbulb, color: 'bg-amber-500' },
+  bakum: { title: 'BAKUM', category: 'Tes Bakat', icon: Activity, color: 'bg-rose-500' },
+  epps: { title: 'EPPS', category: 'Tes Minat', icon: Users, color: 'bg-purple-500' },
+  minat_jabatan: { title: 'Minat Jabatan', category: 'Tes Minat', icon: Network, color: 'bg-blue-500' },
+  kraepelin: { title: 'Kraepelin', category: 'Tes Kerja', icon: Target, color: 'bg-purple-700' },
+  lee_thorpee: { title: 'Lee Thorpee', category: 'Tes Minat', icon: Users, color: 'bg-sky-500' },
+};
 
 export default async function ResultsPage() {
-  const results = await db
+  // Aggregate result counts per testType
+  const stats = await db
     .select({
-      id: testResults.id,
-      participantId: testResults.participantId,
-      category: testResults.category,
-      scoreSummary: testResults.scoreSummary,
-      createdAt: testResults.createdAt,
-      userName: users.fullName,
-      userEmail: users.email,
+      testType: testSessions.testType,
+      count: sql<number>`count(${testResults.id})`.mapWith(Number),
     })
     .from(testResults)
     .innerJoin(testParticipants, eq(testResults.participantId, testParticipants.id))
-    .innerJoin(users, eq(testParticipants.userId, users.id))
-    .orderBy(desc(testResults.createdAt));
+    .innerJoin(testSessions, eq(testParticipants.sessionId, testSessions.id))
+    .groupBy(testSessions.testType);
+
+  const countMap = stats.reduce((acc, curr) => {
+    acc[curr.testType] = curr.count;
+    return acc;
+  }, {} as Record<string, number>);
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-end">
-        <div>
-          <h2 className="text-2xl font-bold">Test Results</h2>
-          <p className="text-purple-800/70">View and export psychological test reports.</p>
-        </div>
-        
-        <div>
-          <a href="/admin/results/epps" className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-900 text-sm font-semibold rounded-xl hover:bg-purple-200 transition-colors shadow-sm">
-            <FileSpreadsheet size={16} className="mr-2" />
-            EPPS Master Recap
-          </a>
-        </div>
+      <div>
+        <h2 className="text-2xl font-bold">Hasil Tes</h2>
+        <p className="text-purple-800/70">Pilih kategori tes untuk melihat rekapan hasil.</p>
       </div>
 
-      <div className="bg-white  rounded-2xl border border-purple-100  shadow-sm overflow-hidden">
-        <table className="w-full text-left">
-          <thead className="bg-purple-50  border-b border-purple-100 ">
-            <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Participant</th>
-              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Category</th>
-              <th className="px-6 py-4 text-sm font-semibold text-purple-900 ">Score Summary</th>
-              <th className="px-6 py-4 text-sm font-semibold text-purple-900  text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-purple-100 ">
-            {results.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-6 py-12 text-center text-purple-800/70 italic">
-                  No results found yet.
-                </td>
-              </tr>
-            ) : results.map((result) => (
-              <tr key={result.id} className="hover:bg-purple-50/50  transition-colors">
-                <td className="px-6 py-4">
-                  <p className="font-medium">{result.userName}</p>
-                  <p className="text-xs text-purple-800/70">{result.userEmail}</p>
-                </td>
-                <td className="px-6 py-4">
-                  <span className="px-2 py-1 bg-purple-50 text-purple-700  rounded text-xs font-bold uppercase">
-                    {result.category}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm font-mono truncate max-w-xs">
-                  {result.scoreSummary || 'N/A'}
-                </td>
-                <td className="px-6 py-4 text-right space-x-2">
-                  <button className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-purple-100  text-purple-900  rounded-lg hover:bg-slate-200 transition-colors">
-                    <Eye size={14} className="mr-1.5" />
-                    View
-                  </button>
-                  <a 
-                    href={`/api/reports/${result.category}/${result.participantId}`} 
-                    target="_blank"
-                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors"
-                  >
-                    <FileDown size={14} className="mr-1.5" />
-                    PDF Report
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Object.entries(TEST_INFO).map(([key, info]) => {
+          const Icon = info.icon;
+          const count = countMap[key] || 0;
 
-      <div className="mt-8 p-6 bg-amber-50  border border-amber-200 rounded-2xl">
-        <h4 className="text-sm font-bold text-amber-800  flex items-center">
-          <FileText size={16} className="mr-2" />
-          PDF Generation Strategy
-        </h4>
-        <p className="mt-2 text-sm text-amber-700  leading-relaxed">
-          For Vercel environment, I recommend using <code className="font-mono bg-amber-100  px-1 rounded">@react-pdf/renderer</code>. 
-          It allows you to define PDF layouts using React components and generate them on the server or client. 
-          Unlike Puppeteer, it has a smaller footprint and works reliably in serverless functions.
-        </p>
+          return (
+            <Link 
+              key={key} 
+              href={`/admin/results/${key}`}
+              className="group block bg-white rounded-2xl border border-purple-100 p-6 shadow-sm hover:shadow-md transition-all hover:border-purple-400"
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-xl ${info.color} text-white shadow-sm group-hover:scale-110 transition-transform`}>
+                  <Icon size={24} />
+                </div>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-950">
+                  {info.category}
+                </span>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-bold text-purple-950 mb-1">
+                  {info.title}
+                </h3>
+                <p className="text-sm text-purple-800/70">
+                  {count} Hasil Tes
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
