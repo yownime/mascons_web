@@ -33,26 +33,40 @@ export default async function BakumRecapPage() {
   const processedData = results.map((result) => {
     const reportData = result.reportData as any;
     
-    // Extract BAKUM scores
-    const getPersoalan = (key: string) => {
+    // Extract BAKUM scores and dynamically recalculate category based on new norms
+    const getPersoalan = (key: string, maxScore: number) => {
+      let correct = 0;
       if (reportData && reportData[key] && reportData[key].score) {
-        return {
-          correct: reportData[key].score.correct || 0,
-          category: reportData[key].score.category || 'rendah',
-        };
+        correct = reportData[key].score.correct || 0;
       }
-      return { correct: 0, category: 'rendah' };
+      
+      let category = 'Rendah';
+      if (maxScore === 20) {
+        if (correct >= 16) category = 'Tinggi';
+        else if (correct >= 8) category = 'Sedang';
+      } else if (maxScore === 30) {
+        if (correct >= 21) category = 'Tinggi';
+        else if (correct >= 11) category = 'Sedang';
+      } else if (maxScore === 40) {
+        if (correct >= 31) category = 'Tinggi';
+        else if (correct >= 16) category = 'Sedang';
+      } else if (maxScore === 80) {
+        if (correct >= 51) category = 'Tinggi';
+        else if (correct >= 31) category = 'Sedang';
+      }
+
+      return { correct, category };
     };
 
-    const p2 = getPersoalan('persoalan_2');
-    const p3 = getPersoalan('persoalan_3');
-    const p4 = getPersoalan('persoalan_4');
-    const p5 = getPersoalan('persoalan_5');
-    const p6 = getPersoalan('persoalan_6');
-    const p7 = getPersoalan('persoalan_7');
-    const p8 = getPersoalan('persoalan_8');
-    const p9 = getPersoalan('persoalan_9');
-    const p10 = getPersoalan('persoalan_10');
+    const p2 = getPersoalan('persoalan_2', 40);
+    const p3 = getPersoalan('persoalan_3', 20);
+    const p4 = getPersoalan('persoalan_4', 40);
+    const p5 = getPersoalan('persoalan_5', 20);
+    const p6 = getPersoalan('persoalan_6', 30);
+    const p7 = getPersoalan('persoalan_7', 20);
+    const p8 = getPersoalan('persoalan_8', 20);
+    const p9 = getPersoalan('persoalan_9', 20);
+    const p10 = getPersoalan('persoalan_10', 80);
 
     const totalRawScore = 
       p2.correct + p3.correct + p4.correct + p5.correct + 
