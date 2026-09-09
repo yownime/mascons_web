@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: { padding: 40, fontFamily: 'Helvetica', backgroundColor: '#ffffff' },
@@ -9,72 +9,64 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 12, color: '#4b5563', marginTop: 4 },
   section: { marginBottom: 20 },
   sectionTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 10, color: '#4f46e5', textTransform: 'uppercase' },
-  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', paddingVertical: 8 },
-  label: { width: 150, fontSize: 10, color: '#6b7280' },
-  value: { flex: 1, fontSize: 11, color: '#111827', fontWeight: 'bold' },
-  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db', marginTop: 10 },
-  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8 },
-  tableCellTitle: { flex: 2, fontSize: 10, color: '#4b5563', fontWeight: 'bold' },
-  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center' },
-  gridContainer: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 10, gap: 4 },
-  gridItem: { width: 35, height: 25, borderWidth: 1, borderColor: '#e5e7eb', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' },
-  gridTextNum: { fontSize: 8, color: '#6b7280', marginRight: 4 },
-  gridTextValCorrect: { fontSize: 8, color: '#15803d', fontWeight: 'bold' },
-  gridTextValWrong: { fontSize: 8, color: '#b91c1c', fontWeight: 'bold' },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db' },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8, backgroundColor: '#fafafa' },
+  tableCellName: { flex: 2, fontSize: 10, color: '#111827', fontWeight: 'bold' },
+  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center', fontWeight: 'bold' },
+  tableCellTotal: { flex: 1, fontSize: 10, color: '#4f46e5', textAlign: 'center', fontWeight: 'extrabold' },
   footer: { position: 'absolute', bottom: 40, left: 40, right: 40, textAlign: 'center', fontSize: 8, color: '#9ca3af', borderTopWidth: 1, borderTopColor: '#f3f4f6', paddingTop: 10 }
 });
 
-export const CFITReport = ({ data, user }: { data: any, user: any }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Psychological Report</Text>
-        <Text style={styles.subtitle}>Test Category: Culture Fair Intelligence Test (CFIT)</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Participant Information</Text>
-        <View style={styles.row}><Text style={styles.label}>Full Name</Text><Text style={styles.value}>{user.fullName}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Email Address</Text><Text style={styles.value}>{user.email}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Test Date</Text><Text style={styles.value}>{new Date().toLocaleDateString()}</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Overall Results</Text>
-        <View style={styles.row}><Text style={styles.label}>IQ Score</Text><Text style={styles.value}>{data.iqScore || 'Calculating...'}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Classification</Text><Text style={styles.value}>{data.classification || 'N/A'}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Total Correct</Text><Text style={styles.value}>{data.score?.correct} / {data.score?.total}</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Breakdown per Subtest</Text>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableCellTitle}>Subtest</Text>
-          <Text style={styles.tableCell}>Correct</Text>
-          <Text style={styles.tableCell}>Total Questions</Text>
-          <Text style={styles.tableCell}>Accuracy</Text>
+export const CFITReport = ({ data, user }: { data: any, user: any }) => {
+  // Extract scores logic (same as Master Recap)
+  const getScore = (testKey: string) => {
+    if (data && data[testKey] && data[testKey].score) {
+      return data[testKey].score.correct || 0;
+    }
+    return 0;
+  };
+
+  const test1 = getScore('test_1');
+  const test2 = getScore('test_2');
+  const test3 = getScore('test_3');
+  const test4 = getScore('test_4');
+  const totalRawScore = test1 + test2 + test3 + test4;
+
+  return (
+    <Document>
+      <Page size="A4" orientation="landscape" style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Laporan Hasil Tes Individu</Text>
+          <Text style={styles.subtitle}>Kategori: CFIT (Culture Fair Intelligence Test)</Text>
         </View>
-        {(data.breakdown || []).map((b: any, index: number) => (
-          <View style={styles.tableRow} key={index}>
-            <Text style={styles.tableCellTitle}>{b.subtest}</Text>
-            <Text style={styles.tableCell}>{b.correct}</Text>
-            <Text style={styles.tableCell}>{b.total}</Text>
-            <Text style={styles.tableCell}>{b.percentage}%</Text>
+        
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Rekapitulasi Hasil</Text>
+          
+          <View style={styles.tableHeader}>
+            <Text style={styles.tableCellName}>Nama Partisipan</Text>
+            <Text style={styles.tableCell}>Part 1</Text>
+            <Text style={styles.tableCell}>Part 2</Text>
+            <Text style={styles.tableCell}>Part 3</Text>
+            <Text style={styles.tableCell}>Part 4</Text>
+            <Text style={styles.tableCellTotal}>Total</Text>
           </View>
-        ))}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Item Analysis (Question-by-Question)</Text>
-        <View style={styles.gridContainer}>
-          {(data.itemAnalysis || []).map((isCorrect: boolean, index: number) => (
-            <View style={styles.gridItem} key={index}>
-              <Text style={styles.gridTextNum}>{index + 1}.</Text>
-              <Text style={isCorrect ? styles.gridTextValCorrect : styles.gridTextValWrong}>{isCorrect ? 'V' : 'X'}</Text>
-            </View>
-          ))}
+          
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellName}>{user.fullName}</Text>
+            <Text style={styles.tableCell}>{test1}</Text>
+            <Text style={styles.tableCell}>{test2}</Text>
+            <Text style={styles.tableCell}>{test3}</Text>
+            <Text style={styles.tableCell}>{test4}</Text>
+            <Text style={styles.tableCellTotal}>{totalRawScore}</Text>
+          </View>
         </View>
-      </View>
-      <Text style={styles.footer}>
-        This report is automatically generated by Mascons Ecosystem. 
-        Confidential for authorized personnel only.
-      </Text>
-    </Page>
-  </Document>
-);
+
+        <Text style={styles.footer}>
+          Laporan ini dicetak secara otomatis oleh Sistem Mascons. 
+          Rahasia dan hanya untuk pihak yang berkepentingan.
+        </Text>
+      </Page>
+    </Document>
+  );
+};

@@ -9,59 +9,52 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 12, color: '#4b5563', marginTop: 4 },
   section: { marginBottom: 20 },
   sectionTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 10, color: '#4f46e5', textTransform: 'uppercase' },
-  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', paddingVertical: 8 },
-  label: { width: 150, fontSize: 10, color: '#6b7280' },
-  value: { flex: 1, fontSize: 11, color: '#111827', fontWeight: 'bold' },
-  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db', marginTop: 10 },
-  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8 },
-  tableCellTitle: { flex: 1, fontSize: 10, color: '#4b5563', fontWeight: 'bold' },
-  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center' },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db' },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8, backgroundColor: '#fafafa' },
+  tableCellName: { flex: 2, fontSize: 10, color: '#111827', fontWeight: 'bold' },
+  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center', fontWeight: 'bold' },
   footer: { position: 'absolute', bottom: 40, left: 40, right: 40, textAlign: 'center', fontSize: 8, color: '#9ca3af', borderTopWidth: 1, borderTopColor: '#f3f4f6', paddingTop: 10 }
 });
 
-export const KraepelinReport = ({ data, user }: { data: any, user: any }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Psychological Report</Text>
-        <Text style={styles.subtitle}>Test Category: Kraepelin</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Participant Information</Text>
-        <View style={styles.row}><Text style={styles.label}>Full Name</Text><Text style={styles.value}>{user.fullName}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Email Address</Text><Text style={styles.value}>{user.email}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Test Date</Text><Text style={styles.value}>{new Date().toLocaleDateString()}</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Results Summary</Text>
-        <View style={styles.row}><Text style={styles.label}>Total Attempted</Text><Text style={styles.value}>{data.score?.total}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Final Accuracy Percentage</Text><Text style={styles.value}>{data.score?.percentage.toFixed(2)}%</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Interpretative Analysis</Text>
-        <View style={styles.row}><Text style={styles.label}>Kecepatan Kerja (Pace/Puncak)</Text><Text style={styles.value}>{data.analysis?.puncak}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Rata-Rata Kecepatan</Text><Text style={styles.value}>{data.analysis?.rata_rata}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Ketahanan (Endurance)</Text><Text style={styles.value}>{data.analysis?.ketahanan}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Keajegan (Steadiness)</Text><Text style={styles.value}>{data.analysis?.stabilitas}</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Column Breakdown</Text>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableCellTitle}>Column</Text>
-          <Text style={styles.tableCell}>Work Pace</Text>
-          <Text style={styles.tableCell}>Correct</Text>
-          <Text style={styles.tableCell}>Wrong</Text>
+export const KraepelinReport = ({ data, user }: { data: any, user: any }) => {
+  const kecepatan = data?.analysis?.rata_rata || 0;
+  const ketelitian = data?.score?.percentage ? data.score.percentage.toFixed(1) + '%' : '0%';
+  const keajegan = data?.analysis?.stabilitas || 0;
+  const ketahanan = data?.analysis?.ketahanan || 0;
+
+  return (
+    <Document>
+      <Page size="A4" orientation="landscape" style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Laporan Hasil Tes Individu</Text>
+          <Text style={styles.subtitle}>Kategori: Tes Kraepelin</Text>
         </View>
-        {(data.columns || []).map((col: any) => (
-          <View style={styles.tableRow} key={col.colNumber}>
-            <Text style={styles.tableCellTitle}>Col {col.colNumber}</Text>
-            <Text style={styles.tableCell}>{col.pace}</Text>
-            <Text style={styles.tableCell}>{col.correct}</Text>
-            <Text style={styles.tableCell}>{col.wrong}</Text>
+        
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Rekapitulasi Hasil</Text>
+          
+          <View style={styles.tableHeader}>
+            <Text style={styles.tableCellName}>Nama Partisipan</Text>
+            <Text style={styles.tableCell}>Kecepatan</Text>
+            <Text style={styles.tableCell}>Ketelitian</Text>
+            <Text style={styles.tableCell}>Keajegan</Text>
+            <Text style={styles.tableCell}>Ketahanan</Text>
           </View>
-        ))}
-      </View>
-      <Text style={styles.footer}>This report is automatically generated by Mascons Ecosystem. Confidential for authorized personnel only.</Text>
-    </Page>
-  </Document>
-);
+          
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellName}>{user.fullName}</Text>
+            <Text style={styles.tableCell}>{kecepatan}</Text>
+            <Text style={styles.tableCell}>{ketelitian}</Text>
+            <Text style={styles.tableCell}>{keajegan}</Text>
+            <Text style={styles.tableCell}>{ketahanan}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.footer}>
+          Laporan ini dicetak secara otomatis oleh Sistem Mascons. 
+          Rahasia dan hanya untuk pihak yang berkepentingan.
+        </Text>
+      </Page>
+    </Document>
+  );
+};

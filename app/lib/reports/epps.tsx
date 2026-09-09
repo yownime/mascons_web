@@ -9,80 +9,71 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 12, color: '#4b5563', marginTop: 4 },
   section: { marginBottom: 20 },
   sectionTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 10, color: '#4f46e5', textTransform: 'uppercase' },
-  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', paddingVertical: 8 },
-  label: { width: 150, fontSize: 10, color: '#6b7280' },
-  value: { flex: 1, fontSize: 11, color: '#111827', fontWeight: 'bold' },
-  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db', marginTop: 10 },
-  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8 },
-  tableCellTitle: { flex: 2, fontSize: 10, color: '#4b5563', fontWeight: 'bold' },
-  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center' },
-  gridContainer: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 10, gap: 4 },
-  gridItem: { width: 28, height: 20, borderWidth: 1, borderColor: '#e5e7eb', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' },
-  gridTextNum: { fontSize: 7, color: '#6b7280', marginRight: 2 },
-  gridTextVal: { fontSize: 8, color: '#2563eb', fontWeight: 'bold' },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 5, borderBottomWidth: 1, borderBottomColor: '#d1d5db' },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 5, backgroundColor: '#fafafa' },
+  tableCellName: { flex: 2, fontSize: 8, color: '#111827', fontWeight: 'bold' },
+  tableCell: { flex: 1, fontSize: 8, color: '#4b5563', textAlign: 'center', fontWeight: 'bold' },
+  tableCellTotal: { flex: 1.2, fontSize: 8, color: '#4f46e5', textAlign: 'center', fontWeight: 'extrabold' },
   footer: { position: 'absolute', bottom: 40, left: 40, right: 40, textAlign: 'center', fontSize: 8, color: '#9ca3af', borderTopWidth: 1, borderTopColor: '#f3f4f6', paddingTop: 10 }
 });
 
-const dimensionsMapping: any = {
-  'ACH': 'Achievement', 'DEF': 'Deference', 'ORD': 'Order', 'EXH': 'Exhibition',
-  'AUT': 'Autonomy', 'AFF': 'Affiliation', 'INT': 'Intraception', 'SUC': 'Succorance',
-  'DOM': 'Dominance', 'ABA': 'Abasement', 'NUR': 'Nurturance', 'CHG': 'Change',
-  'END': 'Endurance', 'HET': 'Heterosexuality', 'AGG': 'Aggression'
-};
+export const EPPSReport = ({ data, user }: { data: any, user: any }) => {
+  const eppsDimensions = [
+    'ACH', 'DEF', 'ORD', 'EXH', 'AUT', 'AFF', 'INT', 'SUC', 
+    'DOM', 'ABA', 'NUR', 'CHG', 'END', 'HET', 'AGG'
+  ];
+  
+  const epps_scores = eppsDimensions.map(dim => {
+    // First try to get from mobile's exact payload: data.rawScores[dim]
+    if (data?.rawScores && data.rawScores[dim] !== undefined) {
+      return data.rawScores[dim];
+    }
+    // Fallback 1: if it's nested in dimensionScores
+    if (data?.dimensionScores && data.dimensionScores[dim]) {
+      return data.dimensionScores[dim].total || 0;
+    }
+    // Fallback 2: for the mockData structure
+    if (data?.normaResults && data.normaResults[dim] !== undefined) {
+      return data.normaResults[dim];
+    }
+    return 0;
+  });
 
-export const EPPSReport = ({ data, user }: { data: any, user: any }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Psychological Report</Text>
-        <Text style={styles.subtitle}>Test Category: Edwards Personal Preference Schedule (EPPS)</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Participant Information</Text>
-        <View style={styles.row}><Text style={styles.label}>Full Name</Text><Text style={styles.value}>{user.fullName}</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Test Validation</Text>
-        <View style={styles.row}>
-          <Text style={styles.label}>Consistency Check</Text>
-          <Text style={{ flex: 1, fontSize: 12, color: data.consistencyCheck?.consistentPairs >= 9 ? '#15803d' : '#b91c1c', fontWeight: 'bold' }}>
-            {data.consistencyCheck?.consistentPairs} / {data.consistencyCheck?.totalPairs} 
-          </Text>
+  const epps_consistency = data?.consistency?.consistentPairs || data?.consistencyCheck?.consistentPairs || 0;
+
+  return (
+    <Document>
+      <Page size="A4" orientation="landscape" style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Laporan Hasil Tes Individu</Text>
+          <Text style={styles.subtitle}>Kategori: Edwards Personal Preference Schedule (EPPS)</Text>
         </View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Personality Dimensions Breakdown</Text>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableCellTitle}>Dimension Code</Text>
-          <Text style={{ flex: 3, fontSize: 10, color: '#4b5563', fontWeight: 'bold' }}>Dimension Name</Text>
-          <Text style={styles.tableCell}>Raw Score</Text>
-        </View>
-        {Object.entries(data.normaResults || {}).map(([key, val]) => (
-          <View style={styles.tableRow} key={key}>
-            <Text style={styles.tableCellTitle}>{key}</Text>
-            <Text style={{ flex: 3, fontSize: 10, color: '#4b5563' }}>{dimensionsMapping[key] || key}</Text>
-            <Text style={styles.tableCell}>{String(val)}</Text>
+        
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Rekapitulasi Hasil</Text>
+          
+          <View style={styles.tableHeader}>
+            <Text style={styles.tableCellName}>Nama Partisipan</Text>
+            {eppsDimensions.map(dim => (
+              <Text key={dim} style={styles.tableCell}>{dim}</Text>
+            ))}
+            <Text style={styles.tableCellTotal}>Consistency</Text>
           </View>
-        ))}
-      </View>
-      <Text style={styles.footer}>This report is automatically generated by Mascons Ecosystem.</Text>
-    </Page>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Item Analysis (EPPS)</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>225 Questions Answer Breakdown</Text>
-        <View style={styles.gridContainer}>
-          {(data.itemAnalysis || []).map((ans: string, index: number) => (
-            <View style={styles.gridItem} key={index}>
-              <Text style={styles.gridTextNum}>{index + 1}.</Text>
-              <Text style={styles.gridTextVal}>{ans}</Text>
-            </View>
-          ))}
+          
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellName}>{user.fullName}</Text>
+            {epps_scores.map((score, i) => (
+              <Text key={i} style={styles.tableCell}>{score}</Text>
+            ))}
+            <Text style={styles.tableCellTotal}>{epps_consistency}</Text>
+          </View>
         </View>
-      </View>
-      <Text style={styles.footer}>This report is automatically generated by Mascons Ecosystem.</Text>
-    </Page>
-  </Document>
-);
+
+        <Text style={styles.footer}>
+          Laporan ini dicetak secara otomatis oleh Sistem Mascons. 
+          Rahasia dan hanya untuk pihak yang berkepentingan.
+        </Text>
+      </Page>
+    </Document>
+  );
+};

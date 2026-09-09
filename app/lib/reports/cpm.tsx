@@ -7,70 +7,64 @@ const styles = StyleSheet.create({
   header: { marginBottom: 30, borderBottom: 2, borderBottomColor: '#4f46e5', paddingBottom: 10 },
   title: { fontSize: 24, fontWeight: 'bold', color: '#1e1b4b' },
   subtitle: { fontSize: 12, color: '#4b5563', marginTop: 4 },
-  section: { marginBottom: 15 },
-  sectionTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 5, color: '#4f46e5', textTransform: 'uppercase' },
-  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', paddingVertical: 4 },
-  label: { width: 150, fontSize: 10, color: '#6b7280' },
-  value: { flex: 1, fontSize: 11, color: '#111827', fontWeight: 'bold' },
-  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db', marginTop: 5 },
-  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 6 },
-  tableCellTitle: { flex: 2, fontSize: 10, color: '#4b5563', fontWeight: 'bold' },
-  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center' },
-  gridContainer: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 5, gap: 4 },
-  gridItem: { width: 30, height: 20, borderWidth: 1, borderColor: '#e5e7eb', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' },
-  gridTextNum: { fontSize: 7, color: '#6b7280', marginRight: 2 },
-  gridTextValCorrect: { fontSize: 7, color: '#15803d', fontWeight: 'bold' },
-  gridTextValWrong: { fontSize: 7, color: '#b91c1c', fontWeight: 'bold' },
+  section: { marginBottom: 20 },
+  sectionTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 10, color: '#4f46e5', textTransform: 'uppercase' },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f3f4f6', padding: 8, borderBottomWidth: 1, borderBottomColor: '#d1d5db' },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#e5e7eb', padding: 8, backgroundColor: '#fafafa' },
+  tableCellName: { flex: 2, fontSize: 10, color: '#111827', fontWeight: 'bold' },
+  tableCell: { flex: 1, fontSize: 10, color: '#4b5563', textAlign: 'center', fontWeight: 'bold' },
+  tableCellTotal: { flex: 1, fontSize: 10, color: '#4f46e5', textAlign: 'center', fontWeight: 'extrabold' },
   footer: { position: 'absolute', bottom: 40, left: 40, right: 40, textAlign: 'center', fontSize: 8, color: '#9ca3af', borderTopWidth: 1, borderTopColor: '#f3f4f6', paddingTop: 10 }
 });
 
-export const CPMReport = ({ data, user }: { data: any, user: any }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Psychological Report</Text>
-        <Text style={styles.subtitle}>Test Category: Coloured Progressive Matrices (CPM)</Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Overall Accuracy</Text>
-        <View style={styles.row}><Text style={styles.label}>Total Questions</Text><Text style={styles.value}>{data.totalQuestions}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Correct Answers</Text><Text style={styles.value}>{data.correctCount}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Final Accuracy</Text><Text style={styles.value}>{(data.accuracy * 100).toFixed(1)}%</Text></View>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Score Breakdown by Type (Set A, B, AB)</Text>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableCellTitle}>Question Set</Text>
-          <Text style={styles.tableCell}>Correct</Text>
-          <Text style={styles.tableCell}>Total</Text>
-          <Text style={styles.tableCell}>Accuracy</Text>
+export const CPMReport = ({ data, user }: { data: any, user: any }) => {
+  let correctA = 0;
+  let correctB = 0;
+  let correctAB = 0;
+  let totalCorrect = 0;
+
+  if (data) {
+    if (data.scoreByType) {
+      correctA = data.scoreByType['A'] || 0;
+      correctB = data.scoreByType['B'] || 0;
+      correctAB = data.scoreByType['AB'] || 0;
+    }
+    totalCorrect = data.correctCount || 0;
+  }
+
+  return (
+    <Document>
+      <Page size="A4" orientation="landscape" style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Laporan Hasil Tes Individu</Text>
+          <Text style={styles.subtitle}>Kategori: Coloured Progressive Matrices (CPM)</Text>
         </View>
-        {Object.entries(data.scoreByType || {}).map(([key, val]: any) => (
-          <View style={styles.tableRow} key={key}>
-            <Text style={styles.tableCellTitle}>Set {key}</Text>
-            <Text style={styles.tableCell}>{val}</Text>
-            <Text style={styles.tableCell}>{data.totalByType[key]}</Text>
-            <Text style={styles.tableCell}>{(data.accuracyByType[key] * 100).toFixed(1)}%</Text>
+        
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Rekapitulasi Hasil</Text>
+          
+          <View style={styles.tableHeader}>
+            <Text style={styles.tableCellName}>Nama Partisipan</Text>
+            <Text style={styles.tableCell}>Set A</Text>
+            <Text style={styles.tableCell}>Set Ab</Text>
+            <Text style={styles.tableCell}>Set B</Text>
+            <Text style={styles.tableCellTotal}>Total</Text>
           </View>
-        ))}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Item Analysis</Text>
-        {Object.entries(data.itemAnalysis || {}).map(([key, arr]: any) => (
-          <View key={key} style={{ marginTop: 5 }}>
-            <Text style={{ fontSize: 10, fontWeight: 'bold' }}>Set {key}</Text>
-            <View style={styles.gridContainer}>
-              {arr.map((isCorrect: boolean, index: number) => (
-                <View style={styles.gridItem} key={index}>
-                  <Text style={styles.gridTextNum}>{index + 1}.</Text>
-                  <Text style={isCorrect ? styles.gridTextValCorrect : styles.gridTextValWrong}>{isCorrect ? 'V' : 'X'}</Text>
-                </View>
-              ))}
-            </View>
+          
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCellName}>{user.fullName}</Text>
+            <Text style={styles.tableCell}>{correctA}</Text>
+            <Text style={styles.tableCell}>{correctAB}</Text>
+            <Text style={styles.tableCell}>{correctB}</Text>
+            <Text style={styles.tableCellTotal}>{totalCorrect}</Text>
           </View>
-        ))}
-      </View>
-      <Text style={styles.footer}>This report is automatically generated by Mascons Ecosystem.</Text>
-    </Page>
-  </Document>
-);
+        </View>
+
+        <Text style={styles.footer}>
+          Laporan ini dicetak secara otomatis oleh Sistem Mascons. 
+          Rahasia dan hanya untuk pihak yang berkepentingan.
+        </Text>
+      </Page>
+    </Document>
+  );
+};
