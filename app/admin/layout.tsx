@@ -122,10 +122,8 @@ export default async function AdminLayout({
           <form action="/api/auth/logout" method="POST">
             <button
               type="submit"
-              className="flex items-center w-full px-4 py-2.5 mt-1.5 text-sm font-medium rounded-xl transition-all duration-200 group"
+              className="admin-sidebar-logout flex items-center w-full px-4 py-2.5 mt-1.5 text-sm font-medium rounded-xl transition-all duration-200 group"
               style={{ color: '#ef4444' }}
-              onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(239,68,68,0.1)'; }}
-              onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
             >
               <LogOut size={19} className="mr-3 opacity-70 group-hover:opacity-100 transition-opacity" />
               Keluar
