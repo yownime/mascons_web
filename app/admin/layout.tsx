@@ -42,30 +42,32 @@ export default async function AdminLayout({
     <div className="flex h-screen" style={{ background: '#f0f4ff' }}>
       {/* Sidebar */}
       <aside
-        className="w-72 flex flex-col relative overflow-hidden"
+        className="w-72 flex flex-col relative overflow-hidden flex-shrink-0"
         style={{
-          background: 'linear-gradient(180deg, #0a1628 0%, #122044 40%, #1e3a8a 100%)',
+          background: '#ffffff',
+          borderRight: '1px solid rgba(29, 78, 216, 0.08)',
+          boxShadow: '4px 0 25px rgba(29, 78, 216, 0.03)',
         }}
       >
         {/* Decorative gradient orb */}
         <div
           className="absolute pointer-events-none"
           style={{
-            top: '-20%',
-            right: '-30%',
-            width: '300px',
-            height: '300px',
-            background: 'radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 70%)',
+            top: '-10%',
+            right: '-20%',
+            width: '280px',
+            height: '280px',
+            background: 'radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%)',
           }}
         />
         <div
           className="absolute pointer-events-none"
           style={{
-            bottom: '10%',
-            left: '-20%',
-            width: '250px',
-            height: '250px',
-            background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)',
+            bottom: '5%',
+            left: '-15%',
+            width: '240px',
+            height: '240px',
+            background: 'radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%)',
           }}
         />
 
@@ -74,7 +76,7 @@ export default async function AdminLayout({
           <div className="flex items-center space-x-3">
             <div
               className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0"
-              style={{ boxShadow: '0 4px 15px rgba(56,189,248,0.3)' }}
+              style={{ boxShadow: '0 4px 14px rgba(29,78,216,0.15)', border: '1px solid rgba(29,78,216,0.1)' }}
             >
               <Image
                 src="/logo.jpeg"
@@ -87,13 +89,13 @@ export default async function AdminLayout({
             <div>
               <h2
                 className="text-lg font-extrabold tracking-tight"
-                style={{ color: '#f0f6ff' }}
+                style={{ color: '#0a1628' }}
               >
                 Mascons
               </h2>
               <p
-                className="text-[10px] uppercase tracking-[0.2em] font-semibold"
-                style={{ color: '#38bdf8' }}
+                className="text-[10px] uppercase tracking-[0.2em] font-bold"
+                style={{ color: '#2563eb' }}
               >
                 Admin Portal
               </p>
@@ -102,11 +104,11 @@ export default async function AdminLayout({
         </div>
 
         {/* Divider */}
-        <div className="mx-5 mb-2" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.2), transparent)' }} />
+        <div className="mx-5 mb-2" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(29,78,216,0.12), transparent)' }} />
 
         {/* Navigation */}
         <nav className="relative z-10 flex-1 px-4 space-y-1 py-2">
-          <p className="px-3 mb-3 text-[10px] uppercase tracking-[0.18em] font-bold" style={{ color: '#64748b' }}>
+          <p className="px-3 mb-3 text-[10px] uppercase tracking-[0.18em] font-bold" style={{ color: '#94a3b8' }}>
             Menu Utama
           </p>
           <SidebarItem href="/admin" icon={<LayoutDashboard size={19} />} label="Overview" />
@@ -117,7 +119,7 @@ export default async function AdminLayout({
 
         {/* Bottom section */}
         <div className="relative z-10 px-4 pb-6">
-          <div className="mb-3" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.15), transparent)' }} />
+          <div className="mb-3" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(29,78,216,0.1), transparent)' }} />
           <SidebarItem href="/settings" icon={<Settings size={19} />} label="Pengaturan" />
           <form action="/api/auth/logout" method="POST">
             <button
@@ -125,7 +127,7 @@ export default async function AdminLayout({
               className="admin-sidebar-logout flex items-center w-full px-4 py-2.5 mt-1.5 text-sm font-medium rounded-xl transition-all duration-200 group"
               style={{ color: '#ef4444' }}
             >
-              <LogOut size={19} className="mr-3 opacity-70 group-hover:opacity-100 transition-opacity" />
+              <LogOut size={19} className="mr-3 opacity-75 group-hover:opacity-100 transition-opacity" />
               Keluar
             </button>
           </form>
@@ -226,16 +228,16 @@ function SidebarItem({ href, icon, label }: { href: string; icon: React.ReactNod
     <Link 
       href={href}
       className="admin-sidebar-item flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 group"
-      style={{ color: '#94a3b8' }}
+      style={{ color: '#475569' }}
     >
       <span className="mr-3 transition-all duration-200 group-hover:scale-110" style={{ color: '#64748b' }}>
         {icon}
       </span>
-      <span className="flex-1">{label}</span>
+      <span className="flex-1 font-semibold">{label}</span>
       <ChevronRight
         size={14}
         className="opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0"
-        style={{ color: '#38bdf8' }}
+        style={{ color: '#2563eb' }}
       />
     </Link>
   );
