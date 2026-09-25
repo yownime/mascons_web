@@ -414,19 +414,7 @@ function FeatureCard({
 }) {
   return (
     <div
-      className="group p-7 rounded-2xl bg-white transition-all duration-300 hover:-translate-y-1"
-      style={{
-        border: "1px solid rgba(29,78,216,0.1)",
-        boxShadow: "0 2px 15px rgba(29,78,216,0.05)",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(29,78,216,0.12)";
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(29,78,216,0.25)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 15px rgba(29,78,216,0.05)";
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(29,78,216,0.1)";
-      }}
+      className="feature-card group p-7 rounded-2xl bg-white transition-all duration-300 hover:-translate-y-1"
     >
       <div
         className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
