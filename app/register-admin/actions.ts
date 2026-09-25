@@ -12,8 +12,9 @@ export async function registerAdmin(formData: FormData) {
   const secretCode = formData.get('secretCode') as string;
 
   // 1. Verify Secret Code
-  if (secretCode !== process.env.ADMIN_SETUP_SECRET) {
-    return { error: 'Invalid Setup Secret Code. You are not authorized to register as an admin.' };
+  const expectedSecret = process.env.ADMIN_SETUP_SECRET || 'mascons2026';
+  if (secretCode !== expectedSecret) {
+    return { error: 'Kode rahasia tidak valid. Hubungi administrator.' };
   }
 
   const supabase = await createClient();

@@ -8,11 +8,8 @@ import {
   ClipboardList, 
   Users, 
   FileText, 
-  Settings,
   LogOut,
   ChevronRight,
-  Bell,
-  Search
 } from 'lucide-react';
 import { db } from '@/app/lib/db';
 import { users } from '@/db/schema';
@@ -120,15 +117,13 @@ export default async function AdminLayout({
         {/* Bottom section */}
         <div className="relative z-10 px-4 pb-6">
           <div className="mb-3" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(29,78,216,0.1), transparent)' }} />
-          <SidebarItem href="/settings" icon={<Settings size={19} />} label="Pengaturan" />
-          <form action="/api/auth/logout" method="POST">
+          <form action="/api/auth/logout" method="POST" className="w-full">
             <button
               type="submit"
-              className="admin-sidebar-logout flex items-center w-full px-4 py-2.5 mt-1.5 text-sm font-medium rounded-xl transition-all duration-200 group"
-              style={{ color: '#ef4444' }}
+              className="w-full flex items-center justify-center px-4 py-3 text-sm font-bold text-red-600 bg-red-50/80 hover:bg-red-600 hover:text-white border border-red-200/80 hover:border-red-600 rounded-xl transition-all duration-200 shadow-sm hover:shadow-lg hover:shadow-red-500/20 group cursor-pointer"
             >
-              <LogOut size={19} className="mr-3 opacity-75 group-hover:opacity-100 transition-opacity" />
-              Keluar
+              <LogOut size={18} className="mr-2 text-red-500 group-hover:text-white transition-colors duration-200" />
+              Keluar Akun
             </button>
           </form>
         </div>
@@ -157,45 +152,8 @@ export default async function AdminLayout({
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Search */}
-            <div
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-sm"
-              style={{
-                background: 'rgba(29,78,216,0.05)',
-                border: '1px solid rgba(29,78,216,0.1)',
-                color: '#64748b',
-              }}
-            >
-              <Search size={15} style={{ color: '#94a3b8' }} />
-              <span className="text-sm" style={{ color: '#94a3b8' }}>Cari...</span>
-              <kbd
-                className="ml-6 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold"
-                style={{ background: 'rgba(29,78,216,0.08)', color: '#64748b' }}
-              >
-                ⌘K
-              </kbd>
-            </div>
-
-            {/* Notification bell */}
-            <button
-              className="relative p-2.5 rounded-xl transition-all duration-200"
-              style={{
-                background: 'rgba(29,78,216,0.05)',
-                border: '1px solid rgba(29,78,216,0.08)',
-              }}
-            >
-              <Bell size={18} style={{ color: '#475569' }} />
-              <span
-                className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full animate-pulse"
-                style={{ background: '#2563eb' }}
-              />
-            </button>
-
             {/* User avatar */}
-            <div
-              className="flex items-center gap-3 pl-3"
-              style={{ borderLeft: '1px solid rgba(29,78,216,0.1)' }}
-            >
+            <div className="flex items-center gap-3">
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold"
                 style={{
@@ -204,7 +162,7 @@ export default async function AdminLayout({
                   boxShadow: '0 4px 12px rgba(29,78,216,0.3)',
                 }}
               >
-                A
+                {user.email ? user.email.charAt(0).toUpperCase() : 'A'}
               </div>
               <div className="hidden lg:block">
                 <p className="text-sm font-semibold" style={{ color: '#0a1628' }}>Admin</p>
