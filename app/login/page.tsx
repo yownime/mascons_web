@@ -1,13 +1,31 @@
 import Image from "next/image";
-import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ShieldCheck, ArrowLeft, Home } from "lucide-react";
 import LoginForm from "./login-form";
 
 export default function LoginPage() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden"
       style={{ background: '#f0f6ff' }}
     >
+      {/* Top-left back to home button */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 z-20 inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 group"
+        style={{
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(29, 78, 216, 0.12)',
+          boxShadow: '0 4px 15px rgba(29, 78, 216, 0.06)',
+          color: '#1d4ed8',
+        }}
+      >
+        <ArrowLeft size={18} className="transition-transform duration-200 group-hover:-translate-x-1" />
+        <span>Kembali ke Beranda</span>
+      </Link>
+
       {/* Decorative blobs */}
       <div
         className="absolute pointer-events-none"
@@ -49,9 +67,9 @@ export default function LoginPage() {
           boxShadow: '0 20px 60px rgba(29,78,216,0.1)',
         }}
       >
-        <div className="p-8 text-center">
+        <div className="p-8 text-center pb-4">
           <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6"
+            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5"
             style={{
               background: 'linear-gradient(135deg, #1d4ed8, #0ea5e9)',
               boxShadow: '0 8px 25px rgba(29,78,216,0.3)',
@@ -68,9 +86,20 @@ export default function LoginPage() {
         </div>
         
         <LoginForm />
+
+        <div className="px-8 pb-6 text-center">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center gap-2 text-sm font-semibold transition-all duration-200 hover:underline group"
+            style={{ color: '#2563eb' }}
+          >
+            <ArrowLeft size={16} className="transition-transform duration-200 group-hover:-translate-x-1" />
+            <span>Kembali ke Beranda</span>
+          </Link>
+        </div>
         
         <div
-          className="p-6 text-center"
+          className="p-5 text-center"
           style={{
             background: 'rgba(29,78,216,0.02)',
             borderTop: '1px solid rgba(29,78,216,0.06)',
