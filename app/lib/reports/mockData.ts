@@ -11,16 +11,20 @@ export const mockEPPS = {
 };
 
 export const mockCFIT = {
-  iqScore: 115,
+  iqScore: 118,
   classification: "Di atas Rata-rata",
-  score: { correct: 38, total: 50, percentage: 76 },
+  score: { correct: 75, total: 96, percentage: 78.1 },
   breakdown: [
-    { subtest: "Subtes 1 (Seri)", correct: 10, total: 13, percentage: 76.9 },
-    { subtest: "Subtes 2 (Klasifikasi)", correct: 11, total: 14, percentage: 78.5 },
-    { subtest: "Subtes 3 (Matriks)", correct: 9, total: 13, percentage: 69.2 },
-    { subtest: "Subtes 4 (Persyaratan)", correct: 8, total: 10, percentage: 80.0 },
+    { subtest: "Subtes 1 (Seri)", correct: 10, total: 12, percentage: 83.3 },
+    { subtest: "Subtes 2 (Klasifikasi)", correct: 11, total: 14, percentage: 78.6 },
+    { subtest: "Subtes 3 (Matriks)", correct: 9, total: 12, percentage: 75.0 },
+    { subtest: "Subtes 4 (Kondisi / Titik)", correct: 6, total: 8, percentage: 75.0 },
+    { subtest: "Subtes 5 (Deret Pola)", correct: 10, total: 13, percentage: 76.9 },
+    { subtest: "Subtes 6 (Klasifikasi)", correct: 11, total: 14, percentage: 78.6 },
+    { subtest: "Subtes 7 (Matriks)", correct: 10, total: 13, percentage: 76.9 },
+    { subtest: "Subtes 8 (Kondisi / Titik)", correct: 8, total: 10, percentage: 80.0 },
   ],
-  itemAnalysis: Array.from({length: 50}).map(() => Math.random() > 0.24)
+  itemAnalysis: Array.from({length: 96}).map(() => Math.random() > 0.22)
 };
 
 export const mockBakum = {

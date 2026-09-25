@@ -20,20 +20,22 @@ export async function POST(req: NextRequest) {
   try {
     const { accessCode } = await req.json();
 
-    if (!accessCode) {
-      return NextResponse.json({ error: 'Access code is required' }, { status: 400 });
+    if (!accessCode || typeof accessCode !== 'string' || !accessCode.trim()) {
+      return NextResponse.json({ error: 'Kode akses wajib diisi' }, { status: 400 });
     }
+
+    const trimmedCode = accessCode.trim().toUpperCase();
 
     // Just find the session, do not create participant yet
     const session = await db.query.testSessions.findFirst({
       where: and(
-        eq(testSessions.accessCode, accessCode),
+        eq(testSessions.accessCode, trimmedCode),
         eq(testSessions.isActive, true)
       ),
     });
 
     if (!session) {
-      return NextResponse.json({ error: 'Invalid or inactive access code' }, { status: 404 });
+      return NextResponse.json({ error: 'Kode akses tidak valid atau sesi sudah tidak aktif' }, { status: 404 });
     }
 
     return NextResponse.json({ 

@@ -18,11 +18,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { accessCode, personalData } = await req.json();
+    const { accessCode, personalData, testCategory } = await req.json();
 
-    if (!accessCode) {
-      return NextResponse.json({ error: 'Access code is required' }, { status: 400 });
+    if (!accessCode || typeof accessCode !== 'string' || !accessCode.trim()) {
+      return NextResponse.json({ error: 'Kode akses wajib diisi' }, { status: 400 });
     }
+
+    const trimmedCode = accessCode.trim().toUpperCase();
 
     // 1. Ensure user exists in our local users table (mirrored from Supabase)
     // In a real app, you might want to sync this on login, but we'll do an upsert here for safety
@@ -35,13 +37,28 @@ export async function POST(req: NextRequest) {
     // 2. Find the session
     const session = await db.query.testSessions.findFirst({
       where: and(
-        eq(testSessions.accessCode, accessCode),
+        eq(testSessions.accessCode, trimmedCode),
         eq(testSessions.isActive, true)
       ),
     });
 
     if (!session) {
-      return NextResponse.json({ error: 'Invalid or inactive access code' }, { status: 404 });
+      return NextResponse.json({ error: 'Kode akses tidak valid atau sesi sudah tidak aktif' }, { status: 404 });
+    }
+
+    // 2b. Verify testCategory compatibility
+    if (testCategory && session.testType && session.testType.toLowerCase() !== 'all') {
+      const sType = session.testType.toLowerCase().trim();
+      const cType = String(testCategory).toLowerCase().trim();
+      const isMatch = sType === cType ||
+        (sType === 'tiu' && cType === 'inteligensi_umum') ||
+        (sType === 'inteligensi_umum' && cType === 'tiu');
+
+      if (!isMatch) {
+        return NextResponse.json({
+          error: `Kode akses ini khusus untuk tes ${session.testType.toUpperCase()}, bukan untuk tes ${testCategory.toUpperCase()}.`
+        }, { status: 400 });
+      }
     }
 
     // 3. Register or find existing participation

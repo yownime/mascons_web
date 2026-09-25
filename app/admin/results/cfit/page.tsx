@@ -45,7 +45,11 @@ export default async function CfitRecapPage() {
     const test2 = getScore('test_2');
     const test3 = getScore('test_3');
     const test4 = getScore('test_4');
-    const totalRawScore = test1 + test2 + test3 + test4;
+    const test5 = getScore('test_5');
+    const test6 = getScore('test_6');
+    const test7 = getScore('test_7');
+    const test8 = getScore('test_8');
+    const totalRawScore = test1 + test2 + test3 + test4 + test5 + test6 + test7 + test8;
 
     return {
       id: result.id,
@@ -54,6 +58,10 @@ export default async function CfitRecapPage() {
       test2,
       test3,
       test4,
+      test5,
+      test6,
+      test7,
+      test8,
       totalRawScore,
     };
   });
@@ -68,7 +76,7 @@ export default async function CfitRecapPage() {
             </Link>
             <h2 className="text-2xl font-bold">CFIT Master Recap</h2>
           </div>
-          <p className="text-purple-800/70">View all CFIT test results and export to Excel.</p>
+          <p className="text-purple-800/70">View all CFIT test results (Subtest 1 - 8) and export to Excel.</p>
         </div>
         
         <div className="flex gap-3">
@@ -78,7 +86,7 @@ export default async function CfitRecapPage() {
               Hapus Dummy
             </button>
           </form>
-          <ExportExcelButton data={processedData} />
+          <ExportExcelButton data={processedData} testType="cfit" />
         </div>
       </div>
 
@@ -87,33 +95,41 @@ export default async function CfitRecapPage() {
           <table className="w-full text-left whitespace-nowrap">
             <thead className="bg-purple-50 border-b border-purple-100">
               <tr>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NO</th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">NO</th>
                 <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NAMA LENGKAP</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 1<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 2<br/><span className="text-xs font-normal">(Max 14)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 3<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 4<br/><span className="text-xs font-normal">(Max 8)</span></th>
-                <th className="px-4 py-3 text-sm font-bold text-purple-900 border-r border-purple-100 text-center">TOTAL SKOR<br/><span className="text-xs font-normal">(Max 46)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900">AKSI</th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 1<br/><span className="text-xs font-normal">(Max 12)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 2<br/><span className="text-xs font-normal">(Max 14)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 3<br/><span className="text-xs font-normal">(Max 12)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 4<br/><span className="text-xs font-normal">(Max 8)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 5<br/><span className="text-xs font-normal">(Max 13)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 6<br/><span className="text-xs font-normal">(Max 14)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 7<br/><span className="text-xs font-normal">(Max 13)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 8<br/><span className="text-xs font-normal">(Max 10)</span></th>
+                <th className="px-4 py-3 text-sm font-bold text-purple-900 border-r border-purple-100 text-center bg-purple-100/50">TOTAL SKOR<br/><span className="text-xs font-normal">(Max 96)</span></th>
+                <th className="px-3 py-3 text-sm font-semibold text-purple-900 text-center">AKSI</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-purple-100">
               {processedData.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-6 py-12 text-center text-purple-800/70 italic">
+                  <td colSpan={12} className="px-6 py-12 text-center text-purple-800/70 italic">
                     Belum ada data hasil tes CFIT.
                   </td>
                 </tr>
               ) : processedData.map((item, index) => (
                 <tr key={item.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{index + 1}</td>
+                  <td className="px-3 py-3 font-medium border-r border-purple-100 text-center">{index + 1}</td>
                   <td className="px-4 py-3 font-medium border-r border-purple-100">{item.userName}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.test1}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.test2}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.test3}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.test4}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test1}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test2}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test3}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test4}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test5}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test6}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test7}</td>
+                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test8}</td>
                   <td className="px-4 py-3 text-center font-bold text-purple-900 border-r border-purple-100 bg-purple-50/30">{item.totalRawScore}</td>
-                  <td className="px-4 py-3 text-center">
+                  <td className="px-3 py-3 text-center">
                     <Link 
                       href={`/admin/results/${item.id}`}
                       className="inline-flex items-center justify-center p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-lg transition-colors"

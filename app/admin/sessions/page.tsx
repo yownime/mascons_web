@@ -39,12 +39,14 @@ export default async function SessionsPage() {
             className="px-4 py-2 rounded-lg border border-purple-100  bg-transparent"
             required
           >
+            <option value="all">Semua Tes (Multi-Test)</option>
             <option value="cpm">CPM (IQ)</option>
             <option value="cfit">CFIT (IQ)</option>
-            <option value="tiu">TIU (IQ)</option>
+            <option value="tiu">TIU / Inteligensi Umum</option>
             <option value="bakum">BAKUM (Bakat)</option>
             <option value="epps">EPPS (Minat)</option>
             <option value="minat_jabatan">Minat Jabatan</option>
+            <option value="kraepelin">Kraepelin</option>
           </select>
           <button 
             type="submit"
