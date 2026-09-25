@@ -7,7 +7,8 @@ import { Brain, Users, Lightbulb, Activity, Target, Network } from 'lucide-react
 
 const TEST_INFO: Record<string, { title: string; category: string; icon: React.FC<any>; color: string }> = {
   cpm: { title: 'CPM', category: 'Tes IQ', icon: Target, color: 'bg-emerald-500' },
-  cfit: { title: 'CFIT', category: 'Tes IQ', icon: Brain, color: 'bg-purple-500' },
+  cfit_skala2: { title: 'CFIT Skala 2', category: 'Tes IQ (Test 1–4)', icon: Brain, color: 'bg-blue-500' },
+  cfit_skala3: { title: 'CFIT Skala 3', category: 'Tes IQ (Test 5–8)', icon: Brain, color: 'bg-indigo-500' },
   tiu: { title: 'TIU', category: 'Tes IQ', icon: Lightbulb, color: 'bg-amber-500' },
   bakum: { title: 'BAKUM', category: 'Tes Bakat', icon: Activity, color: 'bg-rose-500' },
   epps: { title: 'EPPS', category: 'Tes Minat', icon: Users, color: 'bg-purple-500' },
