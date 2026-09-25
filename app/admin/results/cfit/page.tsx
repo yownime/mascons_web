@@ -1,149 +1,32 @@
-import React from 'react';
-import { db } from '@/app/lib/db';
-import { testResults, testParticipants, users } from '@/db/schema';
-import { desc, eq, inArray, like } from 'drizzle-orm';
-import ExportExcelButton from '@/components/admin/ExportExcelButton';
-import { ArrowLeft, Trash2, FileDown } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { revalidatePath } from 'next/cache';
+import { ArrowLeft, Trash2, FileDown, Brain } from 'lucide-react';
+import CfitSkalaTab from '@/components/admin/CfitSkalaTab';
 
-export default async function CfitRecapPage() {
-  async function deleteDummyData() {
-    'use server';
-    // Delete all simulated users
-    await db.delete(users).where(like(users.email, 'simulasi%@example.com'));
-    revalidatePath('/admin/results/cfit');
-  }
-
-  const results = await db
-    .select({
-      id: testResults.id,
-      participantId: testResults.participantId,
-      reportData: testResults.reportData,
-      createdAt: testResults.createdAt,
-      userName: users.fullName,
-    })
-    .from(testResults)
-    .innerJoin(testParticipants, eq(testResults.participantId, testParticipants.id))
-    .innerJoin(users, eq(testParticipants.userId, users.id))
-    .where(inArray(testResults.category, ['CFIT', 'cfit']))
-    .orderBy(desc(testResults.createdAt));
-
-  // Process data for the table and export
-  const processedData = results.map((result) => {
-    const reportData = result.reportData as any;
-    
-    // Extract CFIT raw scores. Fallback to 0 if not found.
-    const getScore = (testKey: string) => {
-      if (reportData && reportData[testKey] && reportData[testKey].score) {
-        return reportData[testKey].score.correct || 0;
-      }
-      return 0;
-    };
-
-    const test1 = getScore('test_1');
-    const test2 = getScore('test_2');
-    const test3 = getScore('test_3');
-    const test4 = getScore('test_4');
-    const test5 = getScore('test_5');
-    const test6 = getScore('test_6');
-    const test7 = getScore('test_7');
-    const test8 = getScore('test_8');
-    const totalRawScore = test1 + test2 + test3 + test4 + test5 + test6 + test7 + test8;
-
-    return {
-      id: result.id,
-      userName: result.userName,
-      test1,
-      test2,
-      test3,
-      test4,
-      test5,
-      test6,
-      test7,
-      test8,
-      totalRawScore,
-    };
-  });
-
+export default function CfitRecapPage() {
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center space-x-2 mb-2">
-            <Link href="/admin/results" className="text-purple-600 hover:text-purple-800 transition-colors">
+            <Link href="/admin/results" className="text-blue-600 hover:text-blue-800 transition-colors">
               <ArrowLeft size={20} />
             </Link>
             <h2 className="text-2xl font-bold">CFIT Master Recap</h2>
           </div>
-          <p className="text-purple-800/70">View all CFIT test results (Subtest 1 - 8) and export to Excel.</p>
+          <p className="text-slate-500">Lihat hasil tes CFIT berdasarkan skala — Skala 2 (Test 1–4) dan Skala 3 (Test 5–8).</p>
         </div>
-        
-        <div className="flex gap-3">
-          <form action={deleteDummyData}>
-            <button type="submit" className="inline-flex items-center px-4 py-2 bg-rose-100 text-rose-700 text-sm font-semibold rounded-xl hover:bg-rose-200 transition-colors shadow-sm">
-              <Trash2 size={16} className="mr-2" />
-              Hapus Dummy
-            </button>
-          </form>
-          <ExportExcelButton data={processedData} testType="cfit" />
+        <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: 'rgba(37,99,235,0.08)', color: '#1d4ed8' }}>
+          <Brain size={16} />
+          Culture Fair Intelligence Test
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-purple-100 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left whitespace-nowrap">
-            <thead className="bg-purple-50 border-b border-purple-100">
-              <tr>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">NO</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NAMA LENGKAP</th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 1<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 2<br/><span className="text-xs font-normal">(Max 14)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 3<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 4<br/><span className="text-xs font-normal">(Max 8)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 5<br/><span className="text-xs font-normal">(Max 13)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 6<br/><span className="text-xs font-normal">(Max 14)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 7<br/><span className="text-xs font-normal">(Max 13)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SUBTES 8<br/><span className="text-xs font-normal">(Max 10)</span></th>
-                <th className="px-4 py-3 text-sm font-bold text-purple-900 border-r border-purple-100 text-center bg-purple-100/50">TOTAL SKOR<br/><span className="text-xs font-normal">(Max 96)</span></th>
-                <th className="px-3 py-3 text-sm font-semibold text-purple-900 text-center">AKSI</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-purple-100">
-              {processedData.length === 0 ? (
-                <tr>
-                  <td colSpan={12} className="px-6 py-12 text-center text-purple-800/70 italic">
-                    Belum ada data hasil tes CFIT.
-                  </td>
-                </tr>
-              ) : processedData.map((item, index) => (
-                <tr key={item.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-3 py-3 font-medium border-r border-purple-100 text-center">{index + 1}</td>
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{item.userName}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test1}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test2}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test3}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test4}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test5}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test6}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test7}</td>
-                  <td className="px-3 py-3 text-center border-r border-purple-100 text-slate-700">{item.test8}</td>
-                  <td className="px-4 py-3 text-center font-bold text-purple-900 border-r border-purple-100 bg-purple-50/30">{item.totalRawScore}</td>
-                  <td className="px-3 py-3 text-center">
-                    <Link 
-                      href={`/admin/results/${item.id}`}
-                      className="inline-flex items-center justify-center p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-lg transition-colors"
-                      title="Lihat Detail / Download Laporan"
-                    >
-                      <FileDown size={18} />
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {/* Tabs */}
+      <CfitSkalaTab />
     </div>
   );
 }

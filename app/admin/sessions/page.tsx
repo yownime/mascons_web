@@ -41,7 +41,8 @@ export default async function SessionsPage() {
           >
             <option value="all">Semua Tes (Multi-Test)</option>
             <option value="cpm">CPM (IQ)</option>
-            <option value="cfit">CFIT (IQ)</option>
+            <option value="cfit_skala2">CFIT Skala 2 (Test 1–4)</option>
+            <option value="cfit_skala3">CFIT Skala 3 (Test 5–8)</option>
             <option value="tiu">TIU / Inteligensi Umum</option>
             <option value="bakum">BAKUM (Bakat)</option>
             <option value="epps">EPPS (Minat)</option>
