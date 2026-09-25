@@ -68,18 +68,18 @@ export default async function CpmRecapPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center space-x-2 mb-2">
-            <Link href="/admin/results" className="text-purple-600 hover:text-purple-800 transition-colors">
+          <div className="flex items-center gap-3 mb-2">
+            <Link href="/admin/results" className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5" style={{ background: '#fff', border: '1px solid rgba(29,78,216,0.1)', boxShadow: '0 2px 10px rgba(29,78,216,0.04)' }}>
               <ArrowLeft size={20} />
             </Link>
-            <h2 className="text-2xl font-bold">CPM Master Recap</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>CPM Master Recap</h2>
           </div>
-          <p className="text-purple-800/70">View all CPM (Coloured Progressive Matrices) test results and export to Excel.</p>
+          <p className="text-sm" style={{ color: '#64748b' }}>View all CPM (Coloured Progressive Matrices) test results and export to Excel.</p>
         </div>
         
         <div className="flex gap-3">
           <form action={deleteDummyData}>
-            <button type="submit" className="inline-flex items-center px-4 py-2 bg-rose-100 text-rose-700 text-sm font-semibold rounded-xl hover:bg-rose-200 transition-colors shadow-sm">
+            <button type="submit" className="inline-flex items-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 hover:-translate-y-0.5" style={{ background: 'rgba(239,68,68,0.08)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.15)' }}>
               <Trash2 size={16} className="mr-2" />
               Hapus Dummy
             </button>
@@ -88,43 +88,43 @@ export default async function CpmRecapPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-purple-100 shadow-sm overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#fff', border: '1px solid rgba(29,78,216,0.08)', boxShadow: '0 2px 20px rgba(29,78,216,0.04)' }}>
         <div className="overflow-x-auto">
           <table className="w-full text-left whitespace-nowrap">
-            <thead className="bg-purple-50 border-b border-purple-100">
+            <thead style={{ background: 'rgba(29,78,216,0.03)', borderBottom: '1px solid rgba(29,78,216,0.06)' }}>
               <tr>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NO</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NAMA LENGKAP</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">BENAR TIPE A<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">BENAR TIPE B<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">BENAR TIPE AB<br/><span className="text-xs font-normal">(Max 12)</span></th>
-                <th className="px-4 py-3 text-sm font-bold text-purple-900 border-r border-purple-100 text-center">TOTAL BENAR<br/><span className="text-xs font-normal">(Max 36)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">TOTAL SALAH</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">PERSENTASE</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900">AKSI</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100">NO</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100">NAMA LENGKAP</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 text-center">BENAR TIPE A<br/><span className="text-xs font-normal">(Max 12)</span></th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 text-center">BENAR TIPE B<br/><span className="text-xs font-normal">(Max 12)</span></th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 text-center">BENAR TIPE AB<br/><span className="text-xs font-normal">(Max 12)</span></th>
+                <th className="px-4 py-3 text-sm font-bold text-slate-800 border-r border-slate-100 text-center">TOTAL BENAR<br/><span className="text-xs font-normal">(Max 36)</span></th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 text-center">TOTAL SALAH</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 text-center">PERSENTASE</th>
+                <th className="px-4 py-3 text-sm font-semibold text-slate-800">AKSI</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-purple-100">
+            <tbody className="divide-y divide-slate-100">
               {processedData.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-6 py-12 text-center text-purple-800/70 italic">
+                  <td colSpan={9} className="px-6 py-12 text-center text-slate-600/70 italic">
                     Belum ada data hasil tes CPM.
                   </td>
                 </tr>
               ) : processedData.map((item, index) => (
-                <tr key={item.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{index + 1}</td>
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{item.userName}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.correctA}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.correctB}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.correctAB}</td>
-                  <td className="px-4 py-3 text-center font-bold text-purple-900 border-r border-purple-100 bg-purple-50/30">{item.totalCorrect}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.totalWrong}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.percentage}</td>
+                <tr key={item.id} className="transition-colors duration-150">
+                  <td className="px-4 py-3 font-medium border-r border-slate-100">{index + 1}</td>
+                  <td className="px-4 py-3 font-medium border-r border-slate-100">{item.userName}</td>
+                  <td className="px-4 py-3 text-center border-r border-slate-100 text-slate-700">{item.correctA}</td>
+                  <td className="px-4 py-3 text-center border-r border-slate-100 text-slate-700">{item.correctB}</td>
+                  <td className="px-4 py-3 text-center border-r border-slate-100 text-slate-700">{item.correctAB}</td>
+                  <td className="px-4 py-3 text-center font-bold text-slate-800 border-r border-slate-100 bg-blue-50/50/30">{item.totalCorrect}</td>
+                  <td className="px-4 py-3 text-center border-r border-slate-100 text-slate-700">{item.totalWrong}</td>
+                  <td className="px-4 py-3 text-center border-r border-slate-100 text-slate-700">{item.percentage}</td>
                   <td className="px-4 py-3 text-center">
                     <Link 
                       href={`/admin/results/${item.id}`}
-                      className="inline-flex items-center justify-center p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-lg transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5" style={{ background: 'rgba(29,78,216,0.06)', color: '#2563eb' }}
                       title="Lihat Detail / Download Laporan"
                     >
                       <FileDown size={18} />

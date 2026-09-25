@@ -15,15 +15,34 @@ export default function CfitRecapPage({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center space-x-2 mb-2">
-            <Link href="/admin/results" className="text-blue-600 hover:text-blue-800 transition-colors">
-              <ArrowLeft size={20} />
+          <div className="flex items-center gap-3 mb-2">
+            <Link
+              href="/admin/results"
+              className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                background: '#fff',
+                border: '1px solid rgba(29,78,216,0.1)',
+                boxShadow: '0 2px 10px rgba(29,78,216,0.04)',
+              }}
+            >
+              <ArrowLeft size={18} style={{ color: '#2563eb' }} />
             </Link>
-            <h2 className="text-2xl font-bold">CFIT Master Recap</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>
+              CFIT Master Recap
+            </h2>
           </div>
-          <p className="text-slate-500">Lihat hasil tes CFIT berdasarkan skala — Skala 2 (Test 1–4) dan Skala 3 (Test 5–8).</p>
+          <p className="text-sm" style={{ color: '#64748b' }}>
+            Lihat hasil tes CFIT berdasarkan skala — Skala 2 (Test 1–4) dan Skala 3 (Test 5–8).
+          </p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: 'rgba(37,99,235,0.08)', color: '#1d4ed8' }}>
+        <div
+          className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+          style={{
+            background: 'rgba(37,99,235,0.06)',
+            border: '1px solid rgba(37,99,235,0.1)',
+            color: '#2563eb',
+          }}
+        >
           <Brain size={16} />
           Culture Fair Intelligence Test
         </div>

@@ -125,18 +125,18 @@ export default async function MinatJabatanRecapPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center space-x-2 mb-2">
-            <Link href="/admin/results" className="text-purple-600 hover:text-purple-800 transition-colors">
+          <div className="flex items-center gap-3 mb-2">
+            <Link href="/admin/results" className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5" style={{ background: '#fff', border: '1px solid rgba(29,78,216,0.1)', boxShadow: '0 2px 10px rgba(29,78,216,0.04)' }}>
               <ArrowLeft size={20} />
             </Link>
-            <h2 className="text-2xl font-bold">Minat Jabatan Master Recap</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>Minat Jabatan Master Recap</h2>
           </div>
-          <p className="text-purple-800/70">View detailed Minat Jabatan results (Bidang, Tipe, & Tingkat) and export to Excel.</p>
+          <p className="text-sm" style={{ color: '#64748b' }}>View detailed Minat Jabatan results (Bidang, Tipe, & Tingkat) and export to Excel.</p>
         </div>
         
         <div className="flex gap-3">
           <form action={deleteDummyData}>
-            <button type="submit" className="inline-flex items-center px-4 py-2 bg-rose-100 text-rose-700 text-sm font-semibold rounded-xl hover:bg-rose-200 transition-colors shadow-sm">
+            <button type="submit" className="inline-flex items-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 hover:-translate-y-0.5" style={{ background: 'rgba(239,68,68,0.08)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.15)' }}>
               <Trash2 size={16} className="mr-2" />
               Hapus Dummy
             </button>
@@ -145,31 +145,31 @@ export default async function MinatJabatanRecapPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-purple-100 shadow-sm overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#fff', border: '1px solid rgba(29,78,216,0.08)', boxShadow: '0 2px 20px rgba(29,78,216,0.04)' }}>
         <div className="overflow-x-auto">
           <table className="w-full text-left whitespace-nowrap">
-            <thead className="bg-purple-50 border-b border-purple-100">
+            <thead style={{ background: 'rgba(29,78,216,0.03)', borderBottom: '1px solid rgba(29,78,216,0.06)' }}>
               {/* LEVEL 1: Group Headers */}
               <tr>
-                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 align-middle text-center">NO</th>
-                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 align-middle">NAMA LENGKAP</th>
+                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 align-middle text-center">NO</th>
+                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-slate-800 border-r border-slate-100 align-middle">NAMA LENGKAP</th>
                 
                 <th colSpan={12} className="px-2 py-2 text-sm font-bold text-white bg-purple-700 border-r border-purple-800 text-center uppercase tracking-wider">BIDANG MINAT</th>
                 <th colSpan={6} className="px-2 py-2 text-sm font-bold text-white bg-blue-600 border-r border-blue-700 text-center uppercase tracking-wider">TIPE MINAT</th>
                 <th colSpan={2} className="px-2 py-2 text-sm font-bold text-white bg-emerald-600 border-r border-emerald-700 text-center uppercase tracking-wider">TINGKAT MINAT</th>
                 
-                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-purple-900 align-middle text-center">AKSI</th>
+                <th rowSpan={2} className="px-4 py-3 text-sm font-semibold text-slate-800 align-middle text-center">AKSI</th>
               </tr>
 
               {/* LEVEL 2: Sub-Component Headers */}
-              <tr className="bg-purple-50/80">
+              <tr className="bg-blue-50/50/80">
                 {/* Bidang Minat Sub-Headers */}
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Pribadi Sosial</th>
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Natural</th>
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Mekanik</th>
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Bisnis</th>
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Seni</th>
-                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-purple-900 border-r border-b border-purple-100 text-center bg-purple-100/50">Sains</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Pribadi Sosial</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Natural</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Mekanik</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Bisnis</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Seni</th>
+                <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-slate-800 border-r border-b border-slate-100 text-center bg-purple-100/50">Sains</th>
                 
                 {/* Tipe Minat Sub-Headers */}
                 <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-blue-900 border-r border-b border-blue-100 text-center bg-blue-50">Verbal</th>
@@ -180,36 +180,36 @@ export default async function MinatJabatanRecapPage() {
                 <th colSpan={2} className="px-2 py-2 text-xs font-semibold text-emerald-900 border-r border-b border-emerald-100 text-center bg-emerald-50">Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-purple-100">
+            <tbody className="divide-y divide-slate-100">
               {processedData.length === 0 ? (
                 <tr>
-                  <td colSpan={24} className="px-6 py-12 text-center text-purple-800/70 italic">
+                  <td colSpan={24} className="px-6 py-12 text-center text-slate-600/70 italic">
                     Belum ada data hasil tes Minat Jabatan.
                   </td>
                 </tr>
               ) : processedData.map((item, index) => (
-                <tr key={item.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-4 py-3 font-medium border-r border-purple-100 text-center">{index + 1}</td>
-                  <td className="px-4 py-3 font-medium border-r border-purple-100 sticky left-0 bg-white/90 backdrop-blur-sm z-10">{item.userName}</td>
+                <tr key={item.id} className="transition-colors duration-150">
+                  <td className="px-4 py-3 font-medium border-r border-slate-100 text-center">{index + 1}</td>
+                  <td className="px-4 py-3 font-medium border-r border-slate-100 sticky left-0 bg-white/90 backdrop-blur-sm z-10">{item.userName}</td>
                   
                   {/* Bidang: Pribadi Sosial */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/10 font-mono text-xs">{item.bidang.pribadiSosial.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 bg-purple-50/10"><CategoryBadge category={item.bidang.pribadiSosial.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/10 font-mono text-xs">{item.bidang.pribadiSosial.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 bg-blue-50/50/10"><CategoryBadge category={item.bidang.pribadiSosial.category} /></td>
                   {/* Bidang: Natural */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/30 font-mono text-xs">{item.bidang.natural.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 bg-purple-50/30"><CategoryBadge category={item.bidang.natural.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/30 font-mono text-xs">{item.bidang.natural.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 bg-blue-50/50/30"><CategoryBadge category={item.bidang.natural.category} /></td>
                   {/* Bidang: Mekanik */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/10 font-mono text-xs">{item.bidang.mekanik.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 bg-purple-50/10"><CategoryBadge category={item.bidang.mekanik.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/10 font-mono text-xs">{item.bidang.mekanik.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 bg-blue-50/50/10"><CategoryBadge category={item.bidang.mekanik.category} /></td>
                   {/* Bidang: Bisnis */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/30 font-mono text-xs">{item.bidang.bisnis.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 bg-purple-50/30"><CategoryBadge category={item.bidang.bisnis.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/30 font-mono text-xs">{item.bidang.bisnis.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 bg-blue-50/50/30"><CategoryBadge category={item.bidang.bisnis.category} /></td>
                   {/* Bidang: Seni */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/10 font-mono text-xs">{item.bidang.seni.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 bg-purple-50/10"><CategoryBadge category={item.bidang.seni.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/10 font-mono text-xs">{item.bidang.seni.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 bg-blue-50/50/10"><CategoryBadge category={item.bidang.seni.category} /></td>
                   {/* Bidang: Sains */}
-                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-purple-50/30 font-mono text-xs">{item.bidang.sains.score}</td>
-                  <td className="px-2 py-3 text-center border-r border-purple-100 border-r-2 border-r-purple-300 bg-purple-50/30"><CategoryBadge category={item.bidang.sains.category} /></td>
+                  <td className="px-2 py-3 text-center border-r border-purple-50 text-slate-700 bg-blue-50/50/30 font-mono text-xs">{item.bidang.sains.score}</td>
+                  <td className="px-2 py-3 text-center border-r border-slate-100 border-r-2 border-r-purple-300 bg-blue-50/50/30"><CategoryBadge category={item.bidang.sains.category} /></td>
 
                   {/* Tipe: Verbal */}
                   <td className="px-2 py-3 text-center border-r border-blue-50 text-slate-700 bg-blue-50/10 font-mono text-xs">{item.tipe.verbal.score}</td>
@@ -228,7 +228,7 @@ export default async function MinatJabatanRecapPage() {
                   <td className="px-4 py-3 text-center">
                     <Link 
                       href={`/admin/results/${item.id}`}
-                      className="inline-flex items-center justify-center p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-lg transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5" style={{ background: 'rgba(29,78,216,0.06)', color: '#2563eb' }}
                       title="Lihat Detail / Download Laporan"
                     >
                       <FileDown size={18} />

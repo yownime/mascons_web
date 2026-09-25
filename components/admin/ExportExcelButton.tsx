@@ -179,7 +179,12 @@ export default function ExportExcelButton({ data, testType }: ExportExcelButtonP
   return (
     <button
       onClick={handleExport}
-      className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-colors shadow-sm"
+      className="inline-flex items-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+      style={{
+        background: 'linear-gradient(135deg, #059669, #10b981)',
+        color: '#fff',
+        boxShadow: '0 4px 15px rgba(5,150,105,0.3)',
+      }}
     >
       <FileSpreadsheet size={16} className="mr-2" />
       {isCfit ? 'Download Excel (CFIT)' : 'Download Excel (Format TO 1)'}

@@ -4,7 +4,7 @@ import { testResults, testParticipants, users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import CertificateViewer from '@/components/admin/CertificateViewer';
 import { notFound } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Award } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function CertificatePage({ params }: { params: Promise<{ id: string }> }) {
@@ -50,18 +50,50 @@ export default async function CertificatePage({ params }: { params: Promise<{ id
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center space-x-4 mb-4">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-2">
         <Link 
           href={`/admin/results/${certificateData.category.toLowerCase().replace(' ', '_')}`}
-          className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-full transition-colors"
+          className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+          style={{
+            background: '#fff',
+            border: '1px solid rgba(29,78,216,0.1)',
+            boxShadow: '0 2px 10px rgba(29,78,216,0.04)',
+          }}
           title="Kembali ke Hasil"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={18} style={{ color: '#2563eb' }} />
         </Link>
-        <h2 className="text-2xl font-bold text-slate-800">Sertifikat: {certificateData.userName}</h2>
+        <div className="flex-1">
+          <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>
+            Sertifikat: {certificateData.userName}
+          </h2>
+          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+            {getCategoryName(certificateData.category)}
+          </p>
+        </div>
+        <div
+          className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold"
+          style={{
+            background: 'rgba(37,99,235,0.06)',
+            border: '1px solid rgba(37,99,235,0.1)',
+            color: '#2563eb',
+          }}
+        >
+          <Award size={16} />
+          Sertifikat
+        </div>
       </div>
       
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 md:p-8 overflow-x-auto shadow-inner min-h-[80vh] flex flex-col items-center justify-center">
+      {/* Certificate Container */}
+      <div
+        className="rounded-2xl p-4 md:p-8 overflow-x-auto min-h-[80vh] flex flex-col items-center justify-center"
+        style={{
+          background: 'rgba(29,78,216,0.02)',
+          border: '1px solid rgba(29,78,216,0.08)',
+          boxShadow: 'inset 0 2px 20px rgba(29,78,216,0.04)',
+        }}
+      >
         <CertificateViewer 
           userName={certificateData.userName} 
           category={getCategoryName(certificateData.category)}

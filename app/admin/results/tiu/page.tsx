@@ -3,7 +3,7 @@ import { db } from '@/app/lib/db';
 import { testResults, testParticipants, users } from '@/db/schema';
 import { desc, eq, inArray, like } from 'drizzle-orm';
 import ExportExcelButton from '@/components/admin/ExportExcelButton';
-import { ArrowLeft, Trash2, FileDown } from 'lucide-react';
+import { ArrowLeft, Trash2, FileDown, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
 
@@ -58,21 +58,42 @@ export default async function TiuRecapPage() {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center space-x-2 mb-2">
-            <Link href="/admin/results" className="text-purple-600 hover:text-purple-800 transition-colors">
-              <ArrowLeft size={20} />
+          <div className="flex items-center gap-3 mb-2">
+            <Link
+              href="/admin/results"
+              className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                background: '#fff',
+                border: '1px solid rgba(29,78,216,0.1)',
+                boxShadow: '0 2px 10px rgba(29,78,216,0.04)',
+              }}
+            >
+              <ArrowLeft size={18} style={{ color: '#2563eb' }} />
             </Link>
-            <h2 className="text-2xl font-bold">TIU Master Recap</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>
+              TIU Master Recap
+            </h2>
           </div>
-          <p className="text-purple-800/70">View all TIU (Tes Inteligensi Umum) test results and export to Excel.</p>
+          <p className="text-sm" style={{ color: '#64748b' }}>
+            Lihat semua hasil tes TIU (Tes Inteligensi Umum) dan ekspor ke Excel.
+          </p>
         </div>
         
         <div className="flex gap-3">
           <form action={deleteDummyData}>
-            <button type="submit" className="inline-flex items-center px-4 py-2 bg-rose-100 text-rose-700 text-sm font-semibold rounded-xl hover:bg-rose-200 transition-colors shadow-sm">
-              <Trash2 size={16} className="mr-2" />
+            <button
+              type="submit"
+              className="inline-flex items-center px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                background: 'rgba(239,68,68,0.08)',
+                color: '#ef4444',
+                border: '1px solid rgba(239,68,68,0.15)',
+              }}
+            >
+              <Trash2 size={15} className="mr-2" />
               Hapus Dummy
             </button>
           </form>
@@ -80,42 +101,65 @@ export default async function TiuRecapPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-purple-100 shadow-sm overflow-hidden">
+      {/* Table */}
+      <div
+        className="rounded-2xl overflow-hidden"
+        style={{
+          background: '#fff',
+          border: '1px solid rgba(29,78,216,0.08)',
+          boxShadow: '0 2px 20px rgba(29,78,216,0.04)',
+        }}
+      >
         <div className="overflow-x-auto">
           <table className="w-full text-left whitespace-nowrap">
-            <thead className="bg-purple-50 border-b border-purple-100">
-              <tr>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NO</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100">NAMA LENGKAP</th>
-                <th className="px-4 py-3 text-sm font-bold text-purple-900 border-r border-purple-100 text-center">BENAR<br/><span className="text-xs font-normal">(Max 30)</span></th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">SALAH</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">KOSONG</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900 border-r border-purple-100 text-center">PERSENTASE</th>
-                <th className="px-4 py-3 text-sm font-semibold text-purple-900">AKSI</th>
+            <thead>
+              <tr style={{ background: 'rgba(29,78,216,0.03)', borderBottom: '1px solid rgba(29,78,216,0.06)' }}>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider" style={{ color: '#64748b', borderRight: '1px solid rgba(29,78,216,0.06)' }}>NO</th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider" style={{ color: '#64748b', borderRight: '1px solid rgba(29,78,216,0.06)' }}>NAMA LENGKAP</th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider text-center" style={{ color: '#2563eb', borderRight: '1px solid rgba(29,78,216,0.06)' }}>
+                  BENAR<br/><span className="text-[10px] font-normal" style={{ color: '#94a3b8' }}>(Max 30)</span>
+                </th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider text-center" style={{ color: '#64748b', borderRight: '1px solid rgba(29,78,216,0.06)' }}>SALAH</th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider text-center" style={{ color: '#64748b', borderRight: '1px solid rgba(29,78,216,0.06)' }}>KOSONG</th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider text-center" style={{ color: '#64748b', borderRight: '1px solid rgba(29,78,216,0.06)' }}>PERSENTASE</th>
+                <th className="px-4 py-3.5 text-[11px] font-bold uppercase tracking-wider text-center" style={{ color: '#64748b' }}>AKSI</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-purple-100">
+            <tbody>
               {processedData.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-purple-800/70 italic">
-                    Belum ada data hasil tes TIU.
+                  <td colSpan={7} className="px-6 py-16 text-center">
+                    <div className="flex flex-col items-center">
+                      <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'rgba(29,78,216,0.06)' }}>
+                        <Lightbulb size={24} style={{ color: '#94a3b8' }} />
+                      </div>
+                      <p className="text-sm font-medium" style={{ color: '#94a3b8' }}>Belum ada data hasil tes TIU</p>
+                    </div>
                   </td>
                 </tr>
               ) : processedData.map((item, index) => (
-                <tr key={item.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{index + 1}</td>
-                  <td className="px-4 py-3 font-medium border-r border-purple-100">{item.userName}</td>
-                  <td className="px-4 py-3 text-center font-bold text-purple-900 border-r border-purple-100 bg-purple-50/30">{item.correct}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.wrong}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.unanswered}</td>
-                  <td className="px-4 py-3 text-center border-r border-purple-100 text-slate-700">{item.percentage}</td>
+                <tr
+                  key={item.id}
+                  className="transition-colors duration-150"
+                  style={{ borderBottom: index < processedData.length - 1 ? '1px solid rgba(29,78,216,0.04)' : 'none' }}
+                >
+                  <td className="px-4 py-3 text-sm font-medium" style={{ color: '#0a1628', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{index + 1}</td>
+                  <td className="px-4 py-3 text-sm font-semibold" style={{ color: '#0a1628', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{item.userName}</td>
+                  <td className="px-4 py-3 text-center text-sm font-bold" style={{ color: '#2563eb', borderRight: '1px solid rgba(29,78,216,0.04)', background: 'rgba(37,99,235,0.03)' }}>{item.correct}</td>
+                  <td className="px-4 py-3 text-center text-sm" style={{ color: '#475569', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{item.wrong}</td>
+                  <td className="px-4 py-3 text-center text-sm" style={{ color: '#475569', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{item.unanswered}</td>
+                  <td className="px-4 py-3 text-center text-sm" style={{ color: '#475569', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{item.percentage}</td>
                   <td className="px-4 py-3 text-center">
                     <Link 
                       href={`/admin/results/${item.id}`}
-                      className="inline-flex items-center justify-center p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 hover:text-purple-800 rounded-lg transition-colors"
+                      className="inline-flex items-center justify-center p-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5"
+                      style={{
+                        background: 'rgba(29,78,216,0.06)',
+                        color: '#2563eb',
+                      }}
                       title="Lihat Detail / Download Laporan"
                     >
-                      <FileDown size={18} />
+                      <FileDown size={16} />
                     </Link>
                   </td>
                 </tr>

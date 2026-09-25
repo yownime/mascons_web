@@ -2,7 +2,7 @@ import React from 'react';
 import { db } from '@/app/lib/db';
 import { testParticipants, testSessions, users } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Users as UsersIcon } from 'lucide-react';
 import Link from 'next/link';
 import ParticipantsList from './ParticipantsList';
 
@@ -41,16 +41,35 @@ export default async function TestCategoryPage({ params }: { params: Promise<{ t
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4 mb-8">
+      <div className="flex items-center gap-4 mb-2">
         <Link
           href="/admin/participants"
-          className="p-2 bg-white  border border-purple-100  rounded-lg hover:bg-purple-50 transition-colors"
+          className="p-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+          style={{
+            background: '#fff',
+            border: '1px solid rgba(29,78,216,0.1)',
+            boxShadow: '0 2px 10px rgba(29,78,216,0.04)',
+          }}
         >
-          <ChevronLeft size={20} className="text-purple-900" />
+          <ChevronLeft size={18} style={{ color: '#2563eb' }} />
         </Link>
-        <div>
-          <h2 className="text-2xl font-bold">Partisipan: {testTitle}</h2>
-          <p className="text-purple-800/70">Menampilkan {participants.length} partisipan terdaftar.</p>
+        <div className="flex-1">
+          <h2 className="text-2xl font-extrabold tracking-tight" style={{ color: '#0a1628' }}>
+            Partisipan: {testTitle}
+          </h2>
+          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+            Menampilkan <strong style={{ color: '#2563eb' }}>{participants.length}</strong> partisipan terdaftar.
+          </p>
+        </div>
+        <div
+          className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl"
+          style={{
+            background: 'rgba(29,78,216,0.05)',
+            border: '1px solid rgba(29,78,216,0.1)',
+          }}
+        >
+          <UsersIcon size={15} style={{ color: '#2563eb' }} />
+          <span className="text-sm font-semibold" style={{ color: '#2563eb' }}>{participants.length}</span>
         </div>
       </div>
 

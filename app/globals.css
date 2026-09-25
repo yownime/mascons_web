@@ -103,3 +103,64 @@ html {
   box-shadow: 0 12px 40px rgba(29, 78, 216, 0.12);
   border-color: rgba(29, 78, 216, 0.25);
 }
+
+/* ── Admin Dashboard Styles ── */
+
+/* Sidebar item hover */
+.admin-sidebar-item:hover {
+  background: rgba(56, 189, 248, 0.08);
+  color: #e2e8f0 !important;
+}
+.admin-sidebar-item:hover span:first-child {
+  color: #38bdf8 !important;
+}
+
+/* Admin scrollbar for dark sidebar */
+aside::-webkit-scrollbar {
+  width: 4px;
+}
+aside::-webkit-scrollbar-track {
+  background: transparent;
+}
+aside::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border-radius: 2px;
+}
+
+/* Admin table row hover */
+table tbody tr:hover {
+  background: rgba(29, 78, 216, 0.02);
+}
+
+/* Admin card glow on hover */
+.admin-card-glow:hover {
+  box-shadow: 0 12px 40px rgba(29, 78, 216, 0.08);
+  border-color: rgba(29, 78, 216, 0.15);
+}
+
+/* Admin button hover glow */
+.admin-btn-primary:hover {
+  box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+}
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Subtle fade-in for page transitions */
+@keyframes admin-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-fade-in {
+  animation: admin-fade-in 0.4s ease forwards;
+}
