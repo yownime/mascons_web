@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
-  ShieldCheck,
   BarChart3,
   FileText,
   Smartphone,
@@ -10,7 +10,6 @@ import {
   Brain,
   Zap,
   Lock,
-  Users,
   TrendingUp,
   ChevronRight,
 } from "lucide-react";
@@ -24,11 +23,14 @@ export default function Home() {
         style={{ boxShadow: "0 1px 30px rgba(37,99,235,0.08)" }}
       >
         <div className="flex items-center space-x-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #1d4ed8, #0ea5e9)" }}
-          >
-            <ShieldCheck className="text-white" size={22} />
+          <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ boxShadow: "0 2px 10px rgba(29,78,216,0.25)" }}>
+            <Image
+              src="/logo.jpeg"
+              alt="Logo Lembaga Konseling Psiko Paedagogi Indonesia"
+              width={40}
+              height={40}
+              className="object-cover w-full h-full"
+            />
           </div>
           <span className="text-xl font-extrabold tracking-tight" style={{ color: "#0a1628" }}>
             Mascons
@@ -377,11 +379,14 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center space-x-3">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #1d4ed8, #0ea5e9)" }}
-            >
-              <ShieldCheck className="text-white" size={18} />
+            <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0" style={{ boxShadow: "0 2px 8px rgba(255,255,255,0.15)" }}>
+              <Image
+                src="/logo.jpeg"
+                alt="Logo Mascons"
+                width={36}
+                height={36}
+                className="object-cover w-full h-full"
+              />
             </div>
             <span className="font-extrabold text-white text-lg tracking-tight">Mascons</span>
           </div>
