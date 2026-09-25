@@ -52,7 +52,9 @@ export async function POST(req: NextRequest) {
       const cType = String(testCategory).toLowerCase().trim();
       const isMatch = sType === cType ||
         (sType === 'tiu' && cType === 'inteligensi_umum') ||
-        (sType === 'inteligensi_umum' && cType === 'tiu');
+        (sType === 'inteligensi_umum' && cType === 'tiu') ||
+        (sType === 'cfit' && (cType === 'cfit_skala2' || cType === 'cfit_skala3')) ||
+        (cType === 'cfit' && (sType === 'cfit_skala2' || sType === 'cfit_skala3'));
 
       if (!isMatch) {
         return NextResponse.json({
