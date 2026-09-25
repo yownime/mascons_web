@@ -47,7 +47,7 @@ export default async function ResultsPage() {
           return (
             <Link 
               key={key} 
-              href={`/admin/results/${key}`}
+              href={key === 'cfit_skala2' ? '/admin/results/cfit' : key === 'cfit_skala3' ? '/admin/results/cfit?skala=3' : `/admin/results/${key}`}
               className="group block bg-white rounded-2xl border border-purple-100 p-6 shadow-sm hover:shadow-md transition-all hover:border-purple-400"
             >
               <div className="flex justify-between items-start mb-4">

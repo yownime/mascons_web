@@ -1,11 +1,15 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Trash2, FileDown, Brain } from 'lucide-react';
+import { ArrowLeft, Brain } from 'lucide-react';
 import CfitSkalaTab from '@/components/admin/CfitSkalaTab';
 
-export default function CfitRecapPage() {
+export default function CfitRecapPage({
+  searchParams,
+}: {
+  searchParams?: { skala?: string };
+}) {
+  const defaultScale = searchParams?.skala === '3' ? 3 : 2;
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -26,7 +30,7 @@ export default function CfitRecapPage() {
       </div>
 
       {/* Tabs */}
-      <CfitSkalaTab />
+      <CfitSkalaTab defaultScale={defaultScale} />
     </div>
   );
 }

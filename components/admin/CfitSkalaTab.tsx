@@ -154,8 +154,8 @@ function CfitTable({ scale }: { scale: 2 | 3 }) {
 }
 
 // ─── Main Tab Component ───────────────────────────────────
-export default function CfitSkalaTab() {
-  const [activeTab, setActiveTab] = useState<2 | 3>(2);
+export default function CfitSkalaTab({ defaultScale = 2 }: { defaultScale?: 2 | 3 }) {
+  const [activeTab, setActiveTab] = useState<2 | 3>(defaultScale as 2 | 3);
 
   const tabs: { scale: 2 | 3; label: string; sub: string }[] = [
     { scale: 2, label: 'CFIT Skala 2', sub: 'Test 1 – 4' },
