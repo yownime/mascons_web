@@ -188,7 +188,17 @@ export default async function EppsRecapPage() {
                       {score}
                     </td>
                   ))}
-                  <td className="px-4 py-3 text-center text-sm font-bold" style={{ color: '#2563eb', borderRight: '1px solid rgba(29,78,216,0.04)' }}>{item.epps_consistency}</td>
+                  <td className="px-3 py-3 text-center text-sm font-bold" style={{ borderRight: '1px solid rgba(29,78,216,0.04)' }}>
+                    {item.epps_consistency < 9 ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200" title="Skor konsistensi di bawah 9, tes terindikasi tidak valid">
+                        ⚠️ {item.epps_consistency}/15 (TIDAK VALID)
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        ✓ {item.epps_consistency}/15 (VALID)
+                      </span>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-center">
                     <Link 
                       href={`/admin/results/${item.id}`}

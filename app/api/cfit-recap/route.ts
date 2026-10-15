@@ -49,11 +49,16 @@ export async function GET(req: NextRequest) {
     })
     .map((r) => {
       const scores = testKeys.map((k) => getScore(r.reportData, k));
+      const hasFlagRed = Boolean(
+        (r.reportData as any)?.hasFlagRed ||
+        testKeys.some((k) => (r.reportData as any)?.[k]?.isSuspicious === true)
+      );
       return {
         id: r.id,
         userName: r.userName ?? 'Unknown',
         scores,
         total: scores.reduce((a, b) => a + b, 0),
+        hasFlagRed,
       };
     });
 

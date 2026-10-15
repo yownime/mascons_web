@@ -10,6 +10,7 @@ interface CfitRow {
   userName: string;
   scores: number[]; // 4 scores for each scale
   total: number;
+  hasFlagRed?: boolean;
 }
 
 // ─── Fetch helper (client-side) ───────────────────────────
@@ -127,7 +128,19 @@ function CfitTable({ scale }: { scale: 2 | 3 }) {
                     className="border-t border-slate-100 hover:bg-blue-50/30 transition-colors"
                   >
                     <td className="px-4 py-3 text-center text-slate-500 font-medium">{idx + 1}</td>
-                    <td className="px-4 py-3 font-semibold text-slate-800">{row.userName}</td>
+                    <td className="px-4 py-3 font-semibold text-slate-800">
+                      <div className="flex items-center gap-2">
+                        <span>{row.userName}</span>
+                        {row.hasFlagRed && (
+                          <span
+                            className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200"
+                            title="Terindikasi durasi subtes terlalu cepat / asal jawab"
+                          >
+                            🚩 Cepat
+                          </span>
+                        )}
+                      </div>
+                    </td>
                     {row.scores.map((s, i) => (
                       <td key={i} className="px-3 py-3 text-center text-slate-700">{s}</td>
                     ))}
