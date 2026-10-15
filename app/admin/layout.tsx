@@ -8,6 +8,7 @@ import {
   ClipboardList, 
   Users, 
   FileText, 
+  Compass,
   LogOut,
   ChevronRight,
 } from 'lucide-react';
@@ -112,6 +113,7 @@ export default async function AdminLayout({
           <SidebarItem href="/admin/sessions" icon={<ClipboardList size={19} />} label="Sesi Tes" />
           <SidebarItem href="/admin/participants" icon={<Users size={19} />} label="Partisipan" />
           <SidebarItem href="/admin/results" icon={<FileText size={19} />} label="Hasil Tes" />
+          <SidebarItem href="/admin/decision-dashboard" icon={<Compass size={19} />} label="Decision Matrix" />
         </nav>
 
         {/* Bottom section */}
